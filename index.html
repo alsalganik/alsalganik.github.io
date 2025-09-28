@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alexander Salganik — Astrophysics CV</title>
+  <meta name="description" content="Online CV of Alexander Salganik, PhD student in Astrophysics at the University of Turku. Publications (MNRAS, A&A), projects, grants, proposals, outreach, and contact details." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Alexander Salganik — CV" />
+  <meta property="og:description" content="Astrophysicist (X-ray pulsars). Publications, grants, proposals, outreach, contacts." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://salganik.me" />
+  <meta property="og:image" content="/assets/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon (replace these files later) -->
+  <link rel="icon" href="/assets/favicon.ico" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Basic styles with dark-mode support -->
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb;
+      --accent:#1565C0; --link-strong:#C62828;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b; }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.6}
+    .container{max-width:960px; margin:0 auto; padding:24px}
+
+    header{display:flex; gap:20px; align-items:center; padding:24px 0; border-bottom:1px solid var(--border)}
+    header img{width:88px; height:88px; border-radius:50%; object-fit:cover; border:1px solid var(--border)}
+    h1{font-size:clamp(28px,5vw,40px); line-height:1.15; margin:0}
+    .subtitle{color:var(--muted); margin-top:6px}
+
+    .actions{margin-top:14px; display:flex; flex-wrap:wrap; gap:10px}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--border); background:var(--card); color:var(--text); border-radius:12px; text-decoration:none; font-weight:600}
+    .btn.primary{background:#111827; color:#fff; border-color:#111827}
+    @media (prefers-color-scheme: dark){ .btn.primary{ background:#2563eb; border-color:#2563eb; } }
+    .btn:hover{filter:brightness(0.98)}
+
+    nav{display:flex; gap:8px; padding:14px 0; flex-wrap:wrap}
+    nav a{color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px}
+    nav a:hover{background:var(--card); color:var(--text)}
+
+    section{padding:28px 0; border-bottom:1px solid var(--border)}
+    section:last-of-type{border-bottom:none}
+    .section-title{font-size:22px; margin:0 0 12px 0; color:var(--accent)}
+    .muted{color:var(--muted)}
+
+    .grid{display:grid; grid-template-columns:1fr; gap:14px}
+    @media(min-width:768px){ .grid.two{grid-template-columns:1fr 1fr} }
+
+    .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px}
+    .row{display:flex; justify-content:space-between; gap:16px}
+    .right{white-space:nowrap; color:var(--muted)}
+
+    ul{margin:0; padding-left:18px}
+    li{margin:6px 0}
+
+    .pub li{margin:12px 0}
+    .pub b i{color:var(--accent)}
+
+    footer{padding:28px 0; color:var(--muted)}
+    .small{font-size:13px}
+
+    .chip{display:inline-block; padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border); font-size:13px; margin-right:6px}
+    .orcid{display:inline-flex; align-items:center; gap:6px}
+    .orcid svg{width:14px; height:14px}
+      .btn.toggle{margin-top:10px; font-weight:600}
+    .collapsible-list li[hidden]{display:none}
+  </style>
+
+  <!-- Schema.org Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Alexander Salganik",
+    "jobTitle": "PhD Student in Astrophysics",
+    "affiliation": {"@type": "Organization", "name": "University of Turku"},
+    "email": "mailto:alsalganik@gmail.com",
+    "sameAs": [
+      "https://orcid.org/0000-0003-2609-8838"
+    ],
+    "url": "https://salganik.me"
+  }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="/assets/photo.jpg" alt="Alexander Salganik portrait" />
+      <div>
+        <h1>Alexander Salganik</h1>
+        <div class="subtitle">PhD Student in Astrophysics — University of Turku, Finland</div>
+        <div class="actions">
+          <a class="btn primary" href="/cv/Alexander_Salganik_CV.pdf" download>Download CV (PDF)</a>
+          <a class="btn" href="mailto:alsalganik@gmail.com">alsalganik@gmail.com</a>
+          <a class="btn" href="mailto:alexander.a.salganik@utu.fi">alexander.a.salganik@utu.fi</a>
+          <a class="btn orcid" href="https://orcid.org/0000-0003-2609-8838" rel="me noopener" target="_blank" aria-label="ORCID">
+            <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="128" cy="128" r="120" fill="#A6CE39"/><path d="M94 70h20v116H94zM141 92a28 28 0 1 1 0 56 28 28 0 0 1 0-56m0-20a48 48 0 1 0 0 96 48 48 0 0 0 0-96z" fill="#fff"/></svg>
+            ORCID
+          </a>
+        </div>
+        <nav>
+          <a href="#summary">Summary</a>
+          <a href="#education">Education</a>
+          <a href="#experience">Experience</a>
+          <a href="#service">Service</a>
+          <a href="#publications">Publications</a>
+          <a href="#grants">Grants</a>
+          <a href="#awards">Awards</a>
+          <a href="#proposals">Proposals</a>
+          <a href="#outreach">Outreach</a>
+          <a href="#talks">Talks</a>
+          <a href="#workshops">Workshops</a>
+        </nav>
+      </div>
+    </header>
+
+    <section id="summary">
+      <h2 class="section-title">Summary</h2>
+      <p class="muted small">Last CV update: <span id="cv-date"></span></p>
+      <p>
+        I am a highly motivated PhD student at the University of Turku with five first-author publications in <i>MNRAS</i> and <i>A&amp;A</i>. My research focuses on X-ray Astrophysics, particularly on X-ray pulsars. I have extensive experience in spectral and timing analyses using data from leading space missions and observatories. My primary goal is to expand my research to include X-ray polarimetric observations of pulsars, aspiring to become a world-leading researcher or professor in the field of high-energy astrophysics.
+      </p>
+      <div>
+        <span class="chip">X-ray pulsars</span>
+        <span class="chip">Spectral &amp; timing analysis</span>
+        <span class="chip">High-energy astrophysics</span>
+        <span class="chip">Polarimetry</span>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2 class="section-title">Education</h2>
+      <div class="card">
+        <div class="row"><b>St. Petersburg State University</b><span class="right">2018–2024</span></div>
+        <div class="muted">Integrated Bachelor's and Master's Degree in Astrophysics (with Distinction)</div>
+      </div>
+      <div class="card">
+        <div class="row"><b>University of Turku</b><span class="right">2024–present</span></div>
+        <div class="muted">PhD in Astrophysics (Self-funded research supported by EDUFI and Wihuri grants)</div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 class="section-title">Work Experience</h2>
+      <div class="card">
+        <div class="row"><b>Space Research Institute (IKI RAS)</b><span class="right">2019–2023</span></div>
+        <div class="muted">Senior Laboratory Assistant (part-time)</div>
+      </div>
+      <div class="card">
+        <div class="row"><b>University of Turku</b><span class="right">2025</span></div>
+        <div class="muted">Teaching Assistant/Demonstrator — Observational X-ray and Gamma-ray Astrophysics Course</div>
+      </div>
+    </section>
+
+    <section id="service">
+      <h2 class="section-title">Professional Service</h2>
+      <ul>
+        <li>Peer-review for <i>The Astrophysical Journal</i> — <span class="muted">2024–present</span></li>
+        <li>Peer-review for <i>Advances in Space Research</i> — <span class="muted">2024–present</span></li>
+        <li>Member of the Finnish Astronomical Society (FAS) — <span class="muted">2025–present</span></li>
+        <li>NewAthena Science Community Member — <span class="muted">2025–present</span></li>
+      </ul>
+    </section>
+
+    <section id="publications">
+      <h2 class="section-title">Publications — First Author</h2>
+      <ol class="pub">
+        <li>
+          <b><i>On the nature of the X-ray pulsar XTE J1859+083 and its broadband properties</i></b><br/>
+          <span class="muted">Salganik A., Tsygankov S. S., Djupvik A. A., Karasev D. I., Lutovinov A. A., Buckley D. A. H., Gromadzki M., Poutanen J.</span><br/>
+          <span><i>MNRAS</i> 509, 5955. <a href="http://dx.doi.org/10.1093/mnras/stab3362" target="_blank" rel="noopener">DOI</a></span>
+          <span class="right">2022</span>
+        </li>
+        <li>
+          <b><i>Discovery of a pulse-phase-transient cyclotron line in the X-ray pulsar Swift J1808.4−1754 and identification of an optical companion</i></b><br/>
+          <span class="muted">Salganik A., Tsygankov S. S., Lutovinov A. A., Djupvik A. A., Karasev D. I., Molkov S. V.</span><br/>
+          <span><i>MNRAS</i> 514, 2707. <a href="http://dx.doi.org/10.1093/mnras/stac1462" target="_blank" rel="noopener">DOI</a></span>
+          <span class="right">2022</span>
+        </li>
+        <li>
+          <b><i>First characterization of a new high-mass X-ray binary in LMC eRASSU J050810.4−660653 with SRG/ART-XC, NuSTAR, and Swift</i></b><br/>
+          <span class="muted">Salganik A., Tsygankov S. S., Lutovinov A. A., Mushtukov A. A., Mereminskiy I. A., Molkov S. V., Semena A. N.</span><br/>
+          <span><i>MNRAS</i> 514, 4018. <a href="http://dx.doi.org/10.1093/mnras/stac1608" target="_blank" rel="noopener">DOI</a></span>
+          <span class="right">2022</span>
+        </li>
+        <li>
+          <b><i>RX J0440.9+4431: another supercritical X-ray pulsar</i></b><br/>
+          <span class="muted">Salganik A., Tsygankov S. S., Doroshenko V., Molkov S. V., Lutovinov A. A., Mushtukov A. A., Poutanen J.</span><br/>
+          <span><i>MNRAS</i> 524, 5213. <a href="http://dx.doi.org/10.1093/mnras/stad2124" target="_blank" rel="noopener">DOI</a></span>
+          <span class="right">2023</span>
+        </li>
+        <li>
+          <b><i>Discovery of a bimodal luminosity distribution in the persistent Be/X-ray pulsar 2RXP J130159.6−635806</i></b><br/>
+          <span class="muted">Salganik A., Tsygankov S. S., Chernyakova M., Malyshev D., Poutanen J.</span><br/>
+          <span><i>A&amp;A</i> 698, A71. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
+          <span class="right">2025</span>          
+        </li>
+      </ol>
+    </section>
+
+    <section id="grants">
+      <h2 class="section-title">Grants</h2>
+      <ul>
+        <li><b>EDUFI Fellowship</b>: Highly competitive fellowship supporting doctoral research (€17,100) — <span class="muted">Oct 2024</span></li>
+        <li><b>Wihuri Foundation Grant</b>: Highly competitive grant supporting doctoral research (€62,000 total) — <span class="muted">Oct 2024, Oct 2025</span></li>
+        <li><b>Frontiers in X-ray Polarimetry (FiXP) Academy travel grant</b> (€1200) — <span class="muted">Mar 2025</span></li>
+      </ul>
+    </section>
+
+    <section id="awards">
+      <h2 class="section-title">Awards and Honors</h2>
+      <ul>
+        <li>Personal Scholarship of the Government of St. Petersburg in the field of Physics — <span class="muted">2018–2020</span></li>
+        <li>IKI RAS Best Scientific Work Prize (for researchers under 35) — <span class="muted">2023</span></li>
+        <li>Enhanced Academic Scholarship of St. Petersburg State University for academic and research excellence — <span class="muted">2020–2024</span></li>
+      </ul>
+    </section>
+
+    <section id="proposals">
+      <h2 class="section-title">Accepted Proposals</h2>
+      <div class="grid two">
+        <div class="card">
+          <b>General Observer</b>
+          <ul class="collapsible-list" data-visible="3">
+            <li><b>PI:</b> Insight-HXMT proposal for observations of cyclotron line harmonics — <span class="muted">2024</span></li>
+            <li><b>PI:</b> IXPE proposal for GX 1+4 observations — <span class="muted">2024</span></li>
+            <li><b>Co-I:</b> IXPE proposal for 4U 1907+09 observations — <span class="muted">2023</span></li>
+          </ul>
+          <button class="btn toggle" aria-expanded="false">Show more</button>
+        </div>
+        <div class="card">
+          <b>Director's Discretionary</b>
+          <ul class="collapsible-list" data-visible="5">
+            <li>PI: NuSTAR 140 ks TOO observations of SXP 31.0 — <span class="muted">May 2025</span></li>
+            <li>PI: Swift 22 ks TOO observations of 2RXP J130159.6-635806 — <span class="muted">Sep 2024–Feb 2025</span></li>
+            <li>PI: Swift 7 ks TOO observations of V0332+53 — <span class="muted">Oct 2024</span></li>
+            <li>PI: Swift 10 ks TOO observations of AX J1910.7+0917 — <span class="muted">May–Jun 2024</span></li>
+            <li>PI: Swift 33 ks TOO observations of RX J0520.5−6932 — <span class="muted">May–Aug 2024</span></li>
+            <li>PI: NICER 49 ks TOO observations of RX J0520.5−6932 — <span class="muted">Apr–Aug 2024</span></li>
+            <li>PI: NICER 2 ks TOO observations of RX J0032.9−7348 — <span class="muted">Nov 2024</span></li>
+            <li>PI: Swift 0.5 ks TOO observations of RX J0032.9−7348 — <span class="muted">Nov 2024</span></li>
+            <li>PI: NICER 39 ks TOO observations of IGR J06074+2205 — <span class="muted">Oct 2023</span></li>
+            <li>PI: NuSTAR 59 ks TOO observations of LS V +44 17 — <span class="muted">Jan–Apr 2023</span></li>
+            <li>PI: Swift 7 ks TOO observations of LS V +44 17 — <span class="muted">Jan 2023</span></li>
+            <li>PI: NuSTAR 56 ks TOO observations of eRASSU J050810.4−660653 — <span class="muted">Dec 2021</span></li>
+            <li>PI: Swift 39 ks TOO observations of eRASSU J050810.4−660653 — <span class="muted">Dec 2021</span></li>
+            <li>PI: Swift 6 ks TOO observations of Swift J1808.4−1754 — <span class="muted">Aug 2021</span></li>
+          </ul>
+          <button class="btn toggle" aria-expanded="false">Show more</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="outreach">
+      <h2 class="section-title">Press &amp; Public Outreach</h2>
+      <ul>
+        <li>INTEGRAL Picture of the Month: Observations of RX J0440.9+4431 in the supercritical accretion regime — <span class="muted">Jun 2023</span></li>
+        <li>IKI RAS Press Release: RX J0440.9+4431 switched to the super-critical accretion regime — <span class="muted">Jun 2023</span></li>
+        <li>Main RAS Press Release: RX J0440.9+4431 transitions into super-critical accretion — <span class="muted">Jun 2023</span></li>
+      </ul>
+    </section>
+
+    <section id="talks">
+      <h2 class="section-title">Talks</h2>
+      <ul>
+        <li><b>On the nature of the X-ray pulsar XTE J1859+083 and its broadband properties:</b>
+          <ul>
+            <li>Conference Fundamental and Applied Space Research 2021, IKI RAS — <span class="muted">Apr 2021</span></li>
+            <li>Invited Talk at St. Petersburg State University — <span class="muted">Dec 2021</span></li>
+            <li>Conference Astronomy and Space Exploration, Ural Federal University — <span class="muted">Jan 2022</span></li>
+          </ul>
+        </li>
+        <li><b>Study of the X-ray pulsars Swift J1808.4−1754 and eRASSU J050810.4−660653 based on space observatories' data:</b>
+          <ul>
+            <li>Conference Fundamental and Applied Space Research 2023, IKI RAS — <span class="muted">Apr 2023</span></li>
+          </ul>
+        </li>
+        <li><b>Study of the transition of the pulsar RX J0440.9+4431 to the super-critical accretion regime:</b>
+          <ul>
+            <li>Conference Physics of Neutron Stars 2023, Ioffe Institute — <span class="muted">Jul 2023</span></li>
+            <li>Invited Talk, Princeton University — <span class="muted">Sep 2023</span></li>
+            <li>Invited Talk, Ioffe Institute — <span class="muted">Sep 2023</span></li>
+            <li>Conference High-energy Astrophysics Today and Tomorrow HEA-2023, IKI RAS — <span class="muted">Dec 2023</span></li>
+          </ul>
+        </li>
+        <li><b>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806:</b>
+          <ul>
+            <li>Invited Talk, THEAPA Group Meeting, University of Maryland — <span class="muted">Mar 2025</span></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="workshops">
+      <h2 class="section-title">Workshops</h2>
+      <ul>
+        <li><b>Frontiers in X-ray Polarimetry (FiXP) Academy</b> — <span class="muted">Apr 2025</span></li>
+      </ul>
+    </section>
+
+    <footer>
+      <div class="small">© <span id="year"></span> Alexander Salganik. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <script>
+    // Fill dates dynamically
+    (function(){
+      const d = new Date();
+      document.getElementById('year').textContent = d.getFullYear();
+      // If you want a static CV date, replace this with a string.
+      document.getElementById('cv-date').textContent = d.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'2-digit'});
+    })();
+  </script>
+  <script>
+    // Collapsible lists: show first N items; toggle shows all/less
+    (function(){
+      const sections = document.querySelectorAll('.collapsible-list');
+      sections.forEach(ul => {
+        const visible = parseInt(ul.dataset.visible || '3', 10);
+        const items = Array.from(ul.children).filter(li => li.tagName === 'LI');
+        const button = ul.parentElement.querySelector('.btn.toggle');
+        if (!button) return;
+        function apply(collapsed){
+          items.forEach((li, i) => li.hidden = collapsed && i >= visible);
+          button.textContent = collapsed ? 'Show more' : 'Show less';
+          button.setAttribute('aria-expanded', String(!collapsed));
+        }
+        let collapsed = true;
+        apply(collapsed);
+        button.addEventListener('click', () => { collapsed = !collapsed; apply(collapsed); });
+      });
+    })();
+  </script>
+</body>
+</html>
