@@ -48,9 +48,26 @@
     .btn:hover{filter:brightness(0.98)}
     .btn.toggle-theme{margin-left:6px}
 
-    nav{display:flex; gap:8px; padding:14px 0; flex-wrap:wrap}
-    nav a{color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px}
-    nav a:hover{background:var(--card); color:var(--text)}
+    nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      padding: 14px 0;
+    }
+
+    nav a {
+      text-align: center;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+
+    nav a:hover {
+      background: var(--card);
+      color: var(--text);
+    }
+
 
     section{padding:28px 0; border-bottom:1px solid var(--border)}
     section:last-of-type{border-bottom:none}
