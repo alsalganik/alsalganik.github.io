@@ -6,6 +6,7 @@
   <title>Alexander Salganik — Astrophysics CV</title>
   <meta name="description" content="Online CV of Alexander Salganik, PhD student in Astrophysics at the University of Turku. Publications (MNRAS, A&A), projects, grants, proposals, outreach, and contact details." />
 
+  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Alexander Salganik — CV" />
   <meta property="og:description" content="Astrophysicist (X-ray pulsars). Publications, grants, proposals, outreach, contacts." />
   <meta property="og:type" content="website" />
@@ -25,142 +26,115 @@
     @media (prefers-color-scheme: dark){
       :root{ --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b; }
     }
-    body.dark {
-      --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b;
+    /* manual theme override */
+    :root[data-theme="light"]{ --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb; --accent:#1565C0; --link-strong:#C62828; }
+    :root[data-theme="dark"]{ --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b; }
+
+    *{ box-sizing:border-box }
+    html{ height:100%; scroll-behavior:smooth; -webkit-text-size-adjust:100% }
+    @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto } }
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.6;
     }
-    body.light {
-      --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb; --accent:#1565C0; --link-strong:#C62828;
+    a{ color:var(--link) }
+    .container{ max-width:960px; margin:0 auto; padding:24px }
+    section{ padding:28px 0; border-bottom:1px solid var(--border); scroll-margin-top:14px }
+    section:last-of-type{ border-bottom:none }
+    .section-title{ font-size:22px; margin:0 0 12px; color:var(--accent) }
+    .muted{ color:var(--muted) }
+    .small{ font-size:13px }
+
+    /* Header as responsive grid */
+    header{
+      display:grid; grid-template-columns:112px 1fr; gap:20px; align-items:center;
+      padding:24px 0; border-bottom:1px solid var(--border)
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.6}
-    .container{max-width:960px; margin:0 auto; padding:24px}
+    .avatar{
+      width:112px; height:112px; border-radius:50%; object-fit:cover; border:1px solid var(--border); flex-shrink:0;
+    }
+    h1{ font-size:clamp(28px,5vw,40px); line-height:1.15; margin:0 }
+    .subtitle{ color:var(--muted); margin-top:6px }
 
-    header{display:flex; gap:20px; align-items:center; padding:24px 0; border-bottom:1px solid var(--border)}
-    header img{width:128px; height:128px; border-radius:50%; object-fit:cover; border:1px solid var(--border)}
-    h1{font-size:clamp(28px,5vw,40px); line-height:1.15; margin:0}
-    .subtitle{color:var(--muted); margin-top:6px}
+    /* Buttons */
+    .actions{ margin-top:14px; display:flex; flex-wrap:wrap; gap:10px }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
+      border:1px solid var(--border); background:var(--card); color:var(--text);
+      border-radius:12px; text-decoration:none; font-weight:600; white-space:nowrap
+    }
+    .btn.primary{ background:#111827; color:#fff; border-color:#111827 }
+    @media (prefers-color-scheme: dark){
+      .btn.primary{ background:#2563eb; border-color:#2563eb }
+    }
+    .btn:hover{ filter:brightness(0.98) }
+    .theme-switch{ margin-left:8px }
 
-    .actions{margin-top:14px; display:flex; flex-wrap:wrap; gap:10px}
-    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--border); background:var(--card); color:var(--text); border-radius:12px; text-decoration:none; font-weight:600; cursor:pointer}
-    .btn.primary{background:#111827; color:#fff; border-color:#111827}
-    @media (prefers-color-scheme: dark){ .btn.primary{ background:#2563eb; border-color:#2563eb; } }
-    .btn:hover{filter:brightness(0.98)}
-    .btn.toggle-theme{margin-left:6px}
+    /* Nav */
+    nav{ display:flex; gap:8px; padding:14px 0; flex-wrap:wrap }
+    nav a{ color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px }
+    nav a:hover{ background:var(--card); color:var(--text) }
 
-    nav{display:flex; gap:8px; padding:14px 0; flex-wrap:wrap}
-    nav a{color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px}
-    nav a:hover{background:var(--card); color:var(--text)}
+    /* Cards & lists */
+    .card{ background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px }
+    .row{ display:flex; justify-content:space-between; gap:16px }
+    .right{ white-space:nowrap; color:var(--muted) }
+    ul{ margin:0; padding-left:18px }
+    li{ margin:6px 0 }
+    .pub li{ margin:12px 0 }
+    .chip{ display:inline-block; padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border); font-size:13px; margin-right:6px }
+    .orcid{ display:inline-flex; align-items:center; gap:6px }
+    .orcid svg{ width:14px; height:14px }
 
-    section{padding:28px 0; border-bottom:1px solid var(--border)}
-    section:last-of-type{border-bottom:none}
-    .section-title{font-size:22px; margin:0 0 12px 0; color:var(--accent)}
-    .muted{color:var(--muted)}
+    .grid{ display:grid; grid-template-columns:1fr; gap:14px }
+    @media(min-width:768px){ .grid.two{ grid-template-columns:1fr 1fr } }
 
-    .grid{display:grid; grid-template-columns:1fr; gap:14px}
-    @media(min-width:768px){ .grid.two{grid-template-columns:1fr 1fr} }
-
-    .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px}
-    .row{display:flex; justify-content:space-between; gap:16px}
-    .right{white-space:nowrap; color:var(--muted)}
-
-    ul{margin:0; padding-left:18px}
-    li{margin:6px 0}
-
-    .pub li{margin:12px 0}
-    .pub b i{color:var(--accent)}
-
-    footer{padding:28px 0; color:var(--muted)}
-    .small{font-size:13px}
-
-    .chip{display:inline-block; padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border); font-size:13px; margin-right:6px}
-    .orcid{display:inline-flex; align-items:center; gap:6px}
-    .orcid svg{width:14px; height:14px}
-    .btn.toggle{margin-top:10px; font-weight:600}
-    .collapsible-list li[hidden]{display:none}
-
-    html { scroll-behavior: smooth; }
-    @media (prefers-reduced-motion: reduce){ html { scroll-behavior: auto; } }
-    section { scroll-margin-top: 12px; }
+    /* ---------- Mobile polish ---------- */
     @media (max-width: 768px){
-      .container{ padding: 16px; }
-    
-      /* Stack header vertically and keep photo from shrinking */
-      header{ flex-direction: column; align-items: flex-start; gap: 14px; }
-      header img{
-        width: clamp(72px, 22vw, 128px);
-        height: clamp(72px, 22vw, 128px);
-        flex-shrink: 0;
+      .container{ padding:16px }
+      header{
+        grid-template-columns:1fr; gap:14px; align-items:start;
       }
-      h1{ font-size: clamp(24px, 8vw, 36px); }
-      .subtitle{ font-size: 14px; }
-    
-      /* Buttons: larger tap area */
-      .actions{ gap: 8px; }
-      .btn{ padding: 12px 16px; border-radius: 12px; font-size: 14px; }
-    
-      /* Make the section title a touch smaller on phones */
-      .section-title{ font-size: 20px; }
-    
-      /* Navigation: allow horizontal scroll on overflow */
-      nav{
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Firefox */
-        gap: 6px;
-        padding-bottom: 6px;
+      .avatar{
+        width:124px; height:124px; margin:0 auto 6px auto; display:block;
       }
-      nav::-webkit-scrollbar{ display: none; }
-      nav a{ padding: 8px 10px; font-size: 14px; white-space: nowrap; }
-    
-      /* Cards & rows: prevent date column from squeezing content */
-      .row{ flex-direction: column; gap: 6px; }
-      .right{ white-space: normal; }
-    
-      /* Two-column grids collapse to single (safety, though it's already set) */
-      .grid.two{ grid-template-columns: 1fr; }
-    
-      /* Lists: a bit tighter on phones */
-      ul{ padding-left: 16px; }
-      li{ margin: 4px 0; }
-    
-      /* Publications: tighten spacing */
-      .pub li{ margin: 10px 0; }
-    }
-    
-    /* Tiny phones (<= 380px): slightly smaller buttons/text */
-    @media (max-width: 380px){
-      .btn{ padding: 10px 14px; font-size: 13px; }
-      .section-title{ font-size: 18px; }
-    }
-    
-    /* iOS text zoom fix */
-    html{ -webkit-text-size-adjust: 100%; }
-    
-    /* Images never overflow container */
-    img{ max-width: 100%; height: auto; }
-  </style>
+      h1{ text-align:left; font-size:clamp(26px,8vw,38px) }
+      .subtitle{ font-size:14px }
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Alexander Salganik",
-    "jobTitle": "PhD Student in Astrophysics",
-    "affiliation": {"@type": "Organization", "name": "University of Turku"},
-    "email": "mailto:alsalganik@gmail.com",
-    "sameAs": ["https://orcid.org/0000-0003-2609-8838"],
-    "url": "https://salganik.me"
-  }
-  </script>
+      /* Buttons → 2-column grid; primary full width */
+      .actions{ display:grid; grid-template-columns:1fr 1fr; gap:10px }
+      .actions .btn{ justify-content:center; padding:12px 14px; font-size:14px }
+      .actions .btn.primary{ grid-column:1 / -1 }
+
+      nav{
+        overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; gap:6px; padding-bottom:6px;
+      }
+      nav::-webkit-scrollbar{ display:none }
+      nav a{ padding:8px 10px; font-size:14px; white-space:nowrap }
+
+      .row{ flex-direction:column; gap:6px }
+      .right{ white-space:normal }
+      .section-title{ font-size:20px }
+      .pub li{ margin:10px 0 }
+      ul{ padding-left:16px }
+      li{ margin:4px 0 }
+    }
+    @media (max-width:380px){
+      .actions .btn{ padding:10px 12px; font-size:13px }
+      .section-title{ font-size:18px }
+    }
+
+    img{ max-width:100%; height:auto }
+  </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <img src="assets/photo.jpg" alt="Alexander Salganik portrait" />
+      <img class="avatar" src="assets/photo.jpg" alt="Alexander Salganik portrait" />
       <div>
         <h1>Alexander Salganik</h1>
         <div class="subtitle">PhD Student in Astrophysics — University of Turku, Finland</div>
+
         <div class="actions">
           <a class="btn primary" href="cv/Alexander_Salganik_CV.pdf" download="Alexander_Salganik_CV.pdf">Download CV (PDF)</a>
           <a class="btn" href="mailto:alsalganik@gmail.com">alsalganik@gmail.com</a>
@@ -169,8 +143,9 @@
             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="128" cy="128" r="120" fill="#A6CE39"/><path d="M94 70h20v116H94zM141 92a28 28 0 1 1 0 56 28 28 0 0 1 0-56m0-20a48 48 0 1 0 0 96 48 48 0 0 0 0-96z" fill="#fff"/></svg>
             ORCID
           </a>
-          <button id="theme-toggle" class="btn toggle-theme" aria-label="Toggle color theme">🌙 Dark Mode</button>
+          <button id="theme-btn" class="btn theme-switch" title="Theme: Auto/Light/Dark">🌗 Theme: Auto</button>
         </div>
+
         <nav>
           <a href="#summary">Summary</a>
           <a href="#education">Education</a>
@@ -263,12 +238,11 @@
           <span class="right">2023</span>
         </li>
         <li>
-          <b><i>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806</i></b><br/>
+          <b><i>Discovery of a bimodal luminosity distribution in the persistent Be/X-ray pulsar 2RXP J130159.6−635806</i></b><br/>
           <span class="muted">Salganik A., Tsygankov S. S., Chernyakova M., Malyshev D., Poutanen J.</span><br/>
-          <span><i>A&amp;A</i>, 698, A71. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
+          <span><i>A&amp;A</i> 698, A71. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
           <span class="right">2025</span>
         </li>
-
       </ol>
     </section>
 
@@ -378,106 +352,64 @@
   </div>
 
   <script>
-    const d = new Date();
-    document.getElementById('year').textContent = d.getFullYear();
-    document.getElementById('cv-date').textContent = d.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'2-digit'});
+    // Fill dates dynamically
+    (function(){
+      const d = new Date();
+      document.getElementById('year').textContent = d.getFullYear();
+      document.getElementById('cv-date').textContent = d.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'2-digit'});
+    })();
   </script>
 
   <script>
-    const sections = document.querySelectorAll('.collapsible-list');
-    sections.forEach(ul => {
-      const visible = parseInt(ul.dataset.visible || '3', 10);
-      const items = Array.from(ul.children).filter(li => li.tagName === 'LI');
-      const button = ul.parentElement.querySelector('.btn.toggle');
-      if (!button) return;
-      function apply(collapsed){
-        items.forEach((li, i) => li.hidden = collapsed && i >= visible);
-        button.textContent = collapsed ? 'Show more' : 'Show less';
-        button.setAttribute('aria-expanded', String(!collapsed));
-      }
-      let collapsed = true;
-      apply(collapsed);
-      button.addEventListener('click', () => { collapsed = !collapsed; apply(collapsed); });
-    });
-  </script>
-
-  <script>
-  (() => {
-    const DURATION = 600;
-    const supportsNative = 'scrollBehavior' in document.documentElement.style;
-    function smoothScrollTo(target) {
-      if (!target) return;
-      if (supportsNative) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
-      const start = window.pageYOffset;
-      const end = target.getBoundingClientRect().top + start - 12;
-      const startTime = performance.now();
-      function step(now) {
-        const t = Math.min(1, (now - startTime) / DURATION);
-        const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-        window.scrollTo(0, start + (end - start) * eased);
-        if (t < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('a[href^="#"]');
-      if (!a) return;
-      const id = decodeURIComponent(a.getAttribute('href').slice(1));
-      const target = document.getElementById(id);
-      if (!target) return;
-      e.preventDefault();
-      history.pushState(null, '', '#' + id);
-      smoothScrollTo(target);
-    });
-    function handleHash() {
-      const id = decodeURIComponent(location.hash.replace('#', ''));
-      if (!id) return;
-      const el = document.getElementById(id);
-      if (!el) return;
-      setTimeout(() => smoothScrollTo(el), 0);
-    }
-    window.addEventListener('load', handleHash);
-    window.addEventListener('hashchange', handleHash);
-  })();
-  </script>
-
-  <script>
-    const themeBtn = document.getElementById('theme-toggle');
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme === 'dark') {
-      document.body.classList.add('dark');
-      themeBtn.textContent = '☀️ Light Mode';
-    } else if (storedTheme === 'light') {
-      document.body.classList.add('light');
-      themeBtn.textContent = '🌙 Dark Mode';
-    }
-    themeBtn.addEventListener('click', () => {
-      if (document.body.classList.contains('dark')) {
-        document.body.classList.remove('dark');
-        document.body.classList.add('light');
-        localStorage.setItem('theme', 'light');
-        themeBtn.textContent = '🌙 Dark Mode';
-      } else if (document.body.classList.contains('light')) {
-        document.body.classList.remove('light');
-        document.body.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-        themeBtn.textContent = '☀️ Light Mode';
-      } else {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (prefersDark) {
-          document.body.classList.add('light');
-          localStorage.setItem('theme', 'light');
-          themeBtn.textContent = '🌙 Dark Mode';
-        } else {
-          document.body.classList.add('dark');
-          localStorage.setItem('theme', 'dark');
-          themeBtn.textContent = '☀️ Light Mode';
+    // Collapsible lists (Show more / Show less)
+    (function(){
+      const lists = document.querySelectorAll('.collapsible-list');
+      lists.forEach(ul => {
+        const visible = parseInt(ul.dataset.visible || '3', 10);
+        const items = Array.from(ul.children).filter(li => li.tagName === 'LI');
+        const btn = ul.parentElement.querySelector('.btn.toggle');
+        if (!btn) return;
+        let collapsed = true;
+        function apply(){
+          items.forEach((li,i)=> li.hidden = collapsed && i >= visible);
+          btn.textContent = collapsed ? 'Show more' : 'Show less';
+          btn.setAttribute('aria-expanded', String(!collapsed));
         }
+        apply();
+        btn.addEventListener('click', ()=>{ collapsed = !collapsed; apply(); });
+      });
+    })();
+  </script>
+
+  <script>
+    // Theme switcher: auto / dark / light (persists in localStorage)
+    (function(){
+      const KEY = 'theme-pref';            // 'auto' | 'dark' | 'light'
+      const root = document.documentElement;
+      const btn  = document.getElementById('theme-btn');
+      const metaTheme = document.querySelector('meta[name="theme-color"]') || (function(){
+        const m=document.createElement('meta'); m.name='theme-color'; document.head.appendChild(m); return m;})();
+
+      function label(t){ return `🌗 Theme: ${t[0].toUpperCase()+t.slice(1)}`; }
+      function apply(theme){
+        if(theme === 'light'){ root.setAttribute('data-theme','light'); }
+        else if(theme === 'dark'){ root.setAttribute('data-theme','dark'); }
+        else { root.removeAttribute('data-theme'); theme='auto'; }
+        btn.textContent = label(theme);
+        const bg = getComputedStyle(root).getPropertyValue('--bg').trim();
+        metaTheme.setAttribute('content', bg || '#ffffff');
+        localStorage.setItem(KEY, theme);
       }
-    });
+      function next(curr){ return curr==='auto' ? 'dark' : curr==='dark' ? 'light' : 'auto'; }
+
+      apply(localStorage.getItem(KEY) || 'auto');
+      btn.addEventListener('click', ()=> apply(next(localStorage.getItem(KEY) || 'auto')));
+
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      mq.addEventListener && mq.addEventListener('change', ()=>{
+        if((localStorage.getItem(KEY) || 'auto')==='auto') apply('auto');
+      });
+    })();
   </script>
 </body>
 </html>
