@@ -3,73 +3,107 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Alexander Salganik — Astrophysics CV</title>
   <meta name="description" content="Online CV of Alexander Salganik, PhD student in Astrophysics at the University of Turku. Publications (MNRAS, A&A), projects, grants, proposals, outreach, and contact details." />
 
+  <!-- Social / SEO -->
+  <link rel="canonical" href="https://salganik.me/">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#1565C0">
   <meta property="og:title" content="Alexander Salganik — CV" />
   <meta property="og:description" content="Astrophysicist (X-ray pulsars). Publications, grants, proposals, outreach, contacts." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://salganik.me" />
-  <meta property="og:image" content="assets/og.jpg" />
+  <meta property="og:url" content="https://salganik.me/" />
+  <meta property="og:image" content="https://salganik.me/assets/og.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="assets/favicon.ico" />
+
+  <!-- Fonts: preconnect + swap -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Set theme ASAP to avoid flash -->
+  <script>
+    (function(){
+      try{
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored || (prefersDark ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+      }catch(e){}
+    })();
+  </script>
+
   <style>
+    /* Color tokens (light default) */
     :root{
       --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb;
       --accent:#1565C0; --link-strong:#C62828;
     }
-    @media (prefers-color-scheme: dark){
-      :root{ --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b; }
-    }
-    body.dark {
+    /* Dark overrides via data-theme */
+    [data-theme="dark"]{
       --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b;
     }
-    body.light {
-      --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb; --accent:#1565C0; --link-strong:#C62828;
-    }
+
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.6}
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.6
+    }
     .container{max-width:960px; margin:0 auto; padding:24px}
 
+    /* Skip link */
+    .skip-link{ position:absolute; left:-9999px; top:auto }
+    .skip-link:focus{ left:12px; top:12px; z-index:1000; background:var(--card); padding:8px 12px; border-radius:8px; outline:2px solid var(--accent) }
+
     header{display:flex; gap:20px; align-items:flex-start; padding:24px 0; border-bottom:1px solid var(--border)}
-    header img{width:188px; height:188px; border-radius:50%; object-fit:cover; border:1px solid var(--border)}
+    header img{
+      width:188px; height:188px; border-radius:50%; object-fit:cover; border:1px solid var(--border)
+    }
     h1{font-size:clamp(28px,5vw,40px); line-height:1.15; margin:0}
     .subtitle{color:var(--muted); margin-top:6px}
 
     .actions{margin-top:14px; display:flex; flex-wrap:wrap; gap:10px}
-    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--border); background:var(--card); color:var(--text); border-radius:12px; text-decoration:none; font-weight:600; cursor:pointer}
-    .btn.primary{background:#111827; color:#fff; border-color:#111827}
-    @media (prefers-color-scheme: dark){ .btn.primary{ background:#2563eb; border-color:#2563eb; } }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
+      border:1px solid var(--border); background:var(--card); color:var(--text);
+      border-radius:12px; text-decoration:none; font-weight:600; cursor:pointer
+    }
+    .btn.primary{ background:#111827; color:#fff; border-color:#111827 }
+    [data-theme="dark"] .btn.primary{ background:#2563eb; border-color:#2563eb; }
     .btn:hover{filter:brightness(0.98)}
     .btn.toggle-theme{margin-left:6px}
 
-    nav {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 12px;
-      padding: 14px 0;
+    /* Primary nav (separate from header for sticky) */
+    nav.primary-nav{
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap:12px; padding:14px 0; border-bottom:1px solid var(--border);
+      background:var(--bg);
+    }
+    nav.primary-nav a{
+      text-align:center; color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px;
+    }
+    nav.primary-nav a:hover{ background:var(--card); color:var(--text) }
+
+    /* Sticky nav on desktop */
+    @media (min-width: 768px){
+      nav.primary-nav{
+        position: sticky; top: 0; z-index: 10; padding-top: 8px; padding-bottom: 8px;
+      }
     }
 
-    nav a {
-      text-align: center;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 10px;
+    /* Highlight active link from scrollspy */
+    nav.primary-nav a[aria-current="true"]{
+      color: var(--text); background: var(--card); font-weight:600; border-radius:10px;
     }
 
-    nav a:hover {
-      background: var(--card);
-      color: var(--text);
-    }
-
-
-    section{padding:28px 0; border-bottom:1px solid var(--border)}
+    /* Sections & grids */
+    section{padding:28px 0; border-bottom:1px solid var(--border); scroll-margin-top: 64px;}
     section:last-of-type{border-bottom:none}
     .section-title{font-size:22px; margin:0 0 12px 0; color:var(--accent)}
     .muted{color:var(--muted)}
@@ -83,7 +117,6 @@
 
     ul{margin:0; padding-left:18px}
     li{margin:6px 0}
-
     .pub li{margin:12px 0}
     .pub b i{color:var(--accent)}
 
@@ -96,13 +129,16 @@
     .btn.toggle{margin-top:10px; font-weight:600}
     .collapsible-list li[hidden]{display:none}
 
-    html { scroll-behavior: smooth; }
-    @media (prefers-reduced-motion: reduce){ html { scroll-behavior: auto; } }
-    section { scroll-margin-top: 12px; }
+    /* Focus styles */
+    :focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* Images never overflow container */
+    img{ max-width: 100%; height: auto; }
+
+    /* Mobile tweaks */
     @media (max-width: 768px){
       .container{ padding: 16px; }
-    
-      /* Stack header vertically and keep photo from shrinking */
+
       header{ flex-direction: column; align-items: flex-start; gap: 14px; }
       header img{
         width: clamp(72px, 22vw, 128px);
@@ -111,78 +147,39 @@
       }
       h1{ font-size: clamp(24px, 8vw, 36px); }
       .subtitle{ font-size: 14px; }
-    
-      /* Buttons: larger tap area */
-      .actions{ gap: 8px; }
-      .btn{ padding: 12px 16px; border-radius: 12px; font-size: 14px; }
-    
-      /* Make the section title a touch smaller on phones */
-      .section-title{ font-size: 20px; }
-    
-      /* Navigation: allow horizontal scroll on overflow */
-      nav{
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Firefox */
-        gap: 6px;
-        padding-bottom: 6px;
+
+      nav.primary-nav{
+        overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        gap: 6px; padding-bottom: 6px; position: static; /* no sticky on small screens */
       }
-      nav::-webkit-scrollbar{ display: none; }
-      nav a{ padding: 8px 10px; font-size: 14px; white-space: nowrap; }
-    
-      /* Cards & rows: prevent date column from squeezing content */
+      nav.primary-nav::-webkit-scrollbar{ display: none; }
+      nav.primary-nav a{ padding: 8px 10px; font-size: 14px; white-space: nowrap; }
+
       .row{ flex-direction: column; gap: 6px; }
       .right{ white-space: normal; }
-    
-      /* Two-column grids collapse to single (safety, though it's already set) */
+
       .grid.two{ grid-template-columns: 1fr; }
-    
-      /* Lists: a bit tighter on phones */
       ul{ padding-left: 16px; }
       li{ margin: 4px 0; }
-    
-      /* Publications: tighten spacing */
       .pub li{ margin: 10px 0; }
     }
-    
-    /* Tiny phones (<= 380px): slightly smaller buttons/text */
+
+    /* Tiny phones */
     @media (max-width: 380px){
       .btn{ padding: 10px 14px; font-size: 13px; }
       .section-title{ font-size: 18px; }
     }
-    
-    /* iOS text zoom fix */
-    html{ -webkit-text-size-adjust: 100%; }
-    
-    /* Images never overflow container */
-    img{ max-width: 100%; height: auto; }
-    :focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
-    nav{ position: sticky; top: 0; background: var(--bg); z-index: 10; }
 
-            /* Desktop sticky nav */
-    @media (min-width: 768px){
-      nav{
-        position: sticky;
-        top: 0;                 /* sticks to top */
-        background: var(--bg);  /* avoid transparency over content */
-        z-index: 10;
-        padding-top: 8px;
-        padding-bottom: 8px;
-      }
+    /* Print-friendly */
+    @media print{
+      .actions, nav.primary-nav, #theme-toggle, .btn.toggle{ display:none !important; }
+      body{ background:#fff; color:#000; }
+      .card{ border: none; background:transparent; padding:0; }
+      a[href^="http"]::after{ content:" (" attr(href) ")"; font-size:12px; }
     }
-    
-    /* highlight the active link */
-    nav a[aria-current="true"]{
-      color: var(--text);
-      background: var(--card);
-      font-weight: 600;
-      border-radius: 10px;
-    }
-    
-    /* helpful when scrolling to anchors so content isn't hidden behind sticky nav */
-    section{ scroll-margin-top: 64px; }
   </style>
 
+  <!-- Person structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -196,383 +193,370 @@
   }
   </script>
 </head>
-  <script>
-(() => {
-  const links = [...document.querySelectorAll('nav a[href^="#"]')];
-  if (!links.length) return;
-
-  // Map #ids to sections and to their nav link
-  const map = new Map();
-  links.forEach(a => {
-    const id = decodeURIComponent(a.getAttribute('href').slice(1));
-    const sec = document.getElementById(id);
-    if (sec) map.set(sec, a);
-  });
-
-  // Helper to update aria-current on the correct link
-  function setCurrent(targetLink){
-    links.forEach(l => l.removeAttribute('aria-current'));
-    if (targetLink) targetLink.setAttribute('aria-current', 'true');
-  }
-
-  // Prefer IntersectionObserver for performance
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      // Pick the most visible section in view
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!visible) return;
-
-      const link = map.get(visible.target);
-      setCurrent(link);
-    }, {
-      // Start observing a bit above the section so the highlight changes sooner
-      root: null,
-      rootMargin: '-20% 0px -60% 0px',
-      threshold: [0, 0.25, 0.5, 0.75, 1]
-    });
-
-    map.forEach((_, section) => observer.observe(section));
-  } else {
-    // Fallback: update on scroll
-    const sections = [...map.keys()];
-    function onScroll(){
-      const y = window.scrollY + 80; // compensate for sticky nav height
-      let current = sections[0];
-      for (const s of sections){
-        if (s.offsetTop <= y) current = s;
-      }
-      setCurrent(map.get(current));
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
-
-  // Also update immediately when clicking a nav link (snappier UX)
-  links.forEach(a => {
-    a.addEventListener('click', () => setCurrent(a));
-  });
-})();
-</script>
-
 <body>
+  <a class="skip-link" href="#summary">Skip to content</a>
+
   <div class="container">
     <header>
-      <img src="assets/photo.jpg" alt="Alexander Salganik portrait" />
+      <img
+        src="assets/photo.jpg"
+        srcset="assets/photo_256.jpg 256w, assets/photo_384.jpg 384w, assets/photo_512.jpg 512w"
+        sizes="(max-width:768px) 22vw, 188px"
+        width="188" height="188" loading="eager"
+        alt="Portrait of Alexander Salganik" />
       <div>
         <h1>Alexander Salganik</h1>
         <div class="subtitle">PhD Student in Astrophysics — University of Turku, Finland</div>
-        <div class="actions">
-          <a class="btn primary" href="cv/Alexander_Salganik_CV.pdf" download="Alexander_Salganik_CV.pdf">Download CV (PDF)</a>
-          <a class="btn" href="mailto:alsalganik@gmail.com">alsalganik@gmail.com</a>
-          <a class="btn" href="mailto:alexander.a.salganik@utu.fi">alexander.a.salganik@utu.fi</a>
-          <a class="btn orcid" href="https://orcid.org/0000-0003-2609-8838" rel="me noopener" target="_blank" aria-label="ORCID">
+        <address class="actions" style="font-style:normal">
+          <a class="btn primary" href="cv/Alexander_Salganik_CV.pdf" type="application/pdf" download="Alexander_Salganik_CV.pdf">Download CV (PDF)</a>
+          <a class="btn" href="mailto:alsalganik@gmail.com" aria-label="Email Alexander (Gmail)">alsalganik@gmail.com</a>
+          <a class="btn" href="mailto:alexander.a.salganik@utu.fi" aria-label="Email Alexander (UTU)">alexander.a.salganik@utu.fi</a>
+          <a class="btn orcid" href="https://orcid.org/0000-0003-2609-8838" rel="me noopener" target="_blank" aria-label="ORCID (opens in new tab)">
             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="128" cy="128" r="120" fill="#A6CE39"/><path d="M94 70h20v116H94zM141 92a28 28 0 1 1 0 56 28 28 0 0 1 0-56m0-20a48 48 0 1 0 0 96 48 48 0 0 0 0-96z" fill="#fff"/></svg>
             ORCID
           </a>
           <button id="theme-toggle" class="btn toggle-theme" aria-label="Toggle color theme">🌙 Dark Mode</button>
-        </div>
-        <nav>
-          <a href="#summary">Summary</a>
-          <a href="#education">Education</a>
-          <a href="#experience">Experience</a>
-          <a href="#service">Service</a>
-          <a href="#publications">Publications</a>
-          <a href="#grants">Grants</a>
-          <a href="#awards">Awards</a>
-          <a href="#proposals">Proposals</a>
-          <a href="#outreach">Outreach</a>
-          <a href="#talks">Talks</a>
-        </nav>
+        </address>
       </div>
     </header>
 
-    <section id="summary">
-      <h2 class="section-title">Summary</h2>
-      <p class="muted small">Last CV update: <time datetime="2025-09-29">Sep 29, 2025</time></p>
-      <p>
-        I am a highly motivated PhD student at the University of Turku with five first-author publications in <i>MNRAS</i> and <i>A&amp;A</i>. My research focuses on X-ray Astrophysics, particularly on X-ray pulsars. I have extensive experience in spectral and timing analyses using data from leading space missions and observatories. My primary goal is to expand my research to include X-ray polarimetric observations of pulsars, aspiring to become a world-leading researcher or professor in the field of high-energy astrophysics.
-      </p>
-      <div>
-        <span class="chip">X-ray pulsars</span>
-        <span class="chip">Timing</span>
-        <span class="chip">Spectroscopy</span>
-        <span class="chip">X-ray Polarimetry</span>
-        <span class="chip">High-energy astrophysics</span>
-      </div>
-    </section>
+    <!-- Sticky nav sits outside header -->
+    <nav class="primary-nav">
+      <a href="#summary">Summary</a>
+      <a href="#education">Education</a>
+      <a href="#experience">Experience</a>
+      <a href="#service">Service</a>
+      <a href="#publications">Publications</a>
+      <a href="#grants">Grants</a>
+      <a href="#awards">Awards</a>
+      <a href="#proposals">Proposals</a>
+      <a href="#outreach">Outreach</a>
+      <a href="#talks">Talks</a>
+    </nav>
 
-    <section id="education">
-      <h2 class="section-title">Education</h2>
-      <div class="card">
-        <div class="row"><b>St. Petersburg State University</b><span class="right">2018–2024</span></div>
-        <div class="muted">Integrated Bachelor's and Master's Degree in Astrophysics (with Distinction)</div>
-      </div>
-      <div class="card">
-        <div class="row"><b>University of Turku</b><span class="right">2024–present</span></div>
-        <div class="muted">PhD in Astrophysics (Self-funded research supported by EDUFI and Wihuri grants)</div>
-      </div>
-    </section>
+    <main id="content" role="main">
+      <section id="summary" aria-labelledby="summary-title">
+        <h2 id="summary-title" class="section-title">Summary</h2>
+        <p class="muted small">Last CV update: <time datetime="2025-09-29">Sep 29, 2025</time></p>
+        <p>
+          I am a highly motivated PhD student at the University of Turku with five first-author publications in <i>MNRAS</i> and <i>A&amp;A</i>. My research focuses on X-ray Astrophysics, particularly on X-ray pulsars. I have extensive experience in spectral and timing analyses using data from leading space missions and observatories. My primary goal is to expand my research to include X-ray polarimetric observations of pulsars, aspiring to become a world-leading researcher or professor in the field of high-energy astrophysics.
+        </p>
+        <div>
+          <span class="chip">X-ray pulsars</span>
+          <span class="chip">Timing</span>
+          <span class="chip">Spectroscopy</span>
+          <span class="chip">X-ray Polarimetry</span>
+          <span class="chip">High-energy astrophysics</span>
+        </div>
+      </section>
 
-    <section id="experience">
-      <h2 class="section-title">Work Experience</h2>
-      <div class="card">
-        <div class="row"><b>Space Research Institute (IKI RAS)</b><span class="right">2019–2023</span></div>
-        <div class="muted">Senior Laboratory Assistant (part-time)</div>
-      </div>
-      <div class="card">
-        <div class="row"><b>University of Turku</b><span class="right">2025</span></div>
-        <div class="muted">Teaching Assistant/Demonstrator — Observational X-ray and Gamma-ray Astrophysics Course</div>
-      </div>
-    </section>
-
-    <section id="service">
-      <h2 class="section-title">Professional Service</h2>
-      <ul>
-        <li>Peer-review for <i>The Astrophysical Journal</i> — <span class="muted">2024–present</span></li>
-        <li>Peer-review for <i>Advances in Space Research</i> — <span class="muted">2024–present</span></li>
-        <li>Member of the Finnish Astronomical Society (FAS) — <span class="muted">2025–present</span></li>
-        <li>NewAthena Science Community Member — <span class="muted">2025–present</span></li>
-      </ul>
-    </section>
-
-    <section id="publications">
-      <h2 class="section-title">Publications — First Author</h2>
-      <ol class="pub">
-        <li>
-          <b><i>On the nature of the X-ray pulsar XTE J1859+083 and its broadband properties</i></b><br/>
-          <span class="muted">Salganik A., Tsygankov S. S., Djupvik A. A., Karasev D. I., Lutovinov A. A., Buckley D. A. H., Gromadzki M., Poutanen J.</span><br/>
-          <span><i>MNRAS</i> 509, 5955. <a href="http://dx.doi.org/10.1093/mnras/stab3362" target="_blank" rel="noopener">DOI</a></span>
-          <span class="right">2022</span>
-        </li>
-        <li>
-          <b><i>Discovery of a pulse-phase-transient cyclotron line in the X-ray pulsar Swift J1808.4−1754 and identification of an optical companion</i></b><br/>
-          <span class="muted">Salganik A., Tsygankov S. S., Lutovinov A. A., Djupvik A. A., Karasev D. I., Molkov S. V.</span><br/>
-          <span><i>MNRAS</i> 514, 2707. <a href="http://dx.doi.org/10.1093/mnras/stac1462" target="_blank" rel="noopener">DOI</a></span>
-          <span class="right">2022</span>
-        </li>
-        <li>
-          <b><i>First characterization of a new high-mass X-ray binary in LMC eRASSU J050810.4−660653 with SRG/ART-XC, NuSTAR, and Swift</i></b><br/>
-          <span class="muted">Salganik A., Tsygankov S. S., Lutovinov A. A., Mushtukov A. A., Mereminskiy I. A., Molkov S. V., Semena A. N.</span><br/>
-          <span><i>MNRAS</i> 514, 4018. <a href="http://dx.doi.org/10.1093/mnras/stac1608" target="_blank" rel="noopener">DOI</a></span>
-          <span class="right">2022</span>
-        </li>
-        <li>
-          <b><i>RX J0440.9+4431: another supercritical X-ray pulsar</i></b><br/>
-          <span class="muted">Salganik A., Tsygankov S. S., Doroshenko V., Molkov S. V., Lutovinov A. A., Mushtukov A. A., Poutanen J.</span><br/>
-          <span><i>MNRAS</i> 524, 5213. <a href="http://dx.doi.org/10.1093/mnras/stad2124" target="_blank" rel="noopener">DOI</a></span>
-          <span class="right">2023</span>
-        </li>
-        <li>
-          <b><i>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806</i></b><br/>
-          <span class="muted">Salganik A., Tsygankov S. S., Chernyakova M., Malyshev D., Poutanen J.</span><br/>
-          <span><i>A&amp;A</i> 698, A71. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
-          <span class="right">2025</span>
-        </li>
-
-      </ol>
-    </section>
-
-    <section id="grants">
-      <h2 class="section-title">Grants</h2>
-      <ul>
-        <li><b>EDUFI Fellowship</b>: Highly competitive fellowship supporting doctoral research (€17,100) — <span class="muted">Oct 2024</span></li>
-        <li><b>Wihuri Foundation Grant</b>: Highly competitive grant supporting doctoral research (€62,000 total) — <span class="muted">Oct 2024, Oct 2025</span></li>
-        <li><b>Frontiers in X-ray Polarimetry (FiXP) Academy travel grant</b> (€1200) — <span class="muted">Mar 2025</span></li>
-      </ul>
-    </section>
-
-    <section id="awards">
-      <h2 class="section-title">Awards and Honors</h2>
-      <ul>
-        <li>Personal Scholarship of the Government of St. Petersburg in the field of Physics — <span class="muted">2018–2020</span></li>
-        <li>IKI RAS Best Scientific Work Prize (for researchers under 35) — <span class="muted">2023</span></li>
-        <li>Enhanced Academic Scholarship of St. Petersburg State University for academic and research excellence — <span class="muted">2020–2024</span></li>
-      </ul>
-    </section>
-
-    <section id="proposals">
-      <h2 class="section-title">Accepted Proposals</h2>
-      <div class="grid two">
+      <section id="education" aria-labelledby="education-title">
+        <h2 id="education-title" class="section-title">Education</h2>
         <div class="card">
-          <b>General Observer</b>
-          <ul class="collapsible-list" data-visible="3">
-            <li><b>PI:</b> Insight-HXMT proposal for observations of cyclotron line harmonics — <span class="muted">2024</span></li>
-            <li><b>PI:</b> IXPE proposal for GX 1+4 observations — <span class="muted">2024</span></li>
-            <li><b>Co-I:</b> IXPE proposal for 4U 1907+09 observations — <span class="muted">2023</span></li>
-          </ul>
-          <button class="btn toggle" aria-expanded="false">Show more</button>
+          <div class="row"><b>St. Petersburg State University</b><span class="right"><time datetime="2018">2018</time>–<time datetime="2024">2024</time></span></div>
+          <div class="muted">Integrated Bachelor's and Master's Degree in Astrophysics (with Distinction)</div>
         </div>
         <div class="card">
-          <b>Director's Discretionary</b>
-          <ul class="collapsible-list" data-visible="5">
-            <li>PI: NuSTAR 140 ks TOO observations of SXP 31.0 — <span class="muted">May 2025</span></li>
-            <li>PI: Swift 22 ks TOO observations of 2RXP J130159.6-635806 — <span class="muted">Sep 2024–Feb 2025</span></li>
-            <li>PI: Swift 7 ks TOO observations of V0332+53 — <span class="muted">Oct 2024</span></li>
-            <li>PI: Swift 10 ks TOO observations of AX J1910.7+0917 — <span class="muted">May–Jun 2024</span></li>
-            <li>PI: Swift 33 ks TOO observations of RX J0520.5−6932 — <span class="muted">May–Aug 2024</span></li>
-            <li>PI: NICER 49 ks TOO observations of RX J0520.5−6932 — <span class="muted">Apr–Aug 2024</span></li>
-            <li>PI: NICER 2 ks TOO observations of RX J0032.9−7348 — <span class="muted">Nov 2024</span></li>
-            <li>PI: Swift 0.5 ks TOO observations of RX J0032.9−7348 — <span class="muted">Nov 2024</span></li>
-            <li>PI: NICER 39 ks TOO observations of IGR J06074+2205 — <span class="muted">Oct 2023</span></li>
-            <li>PI: NuSTAR 59 ks TOO observations of LS V +44 17 — <span class="muted">Jan–Apr 2023</span></li>
-            <li>PI: Swift 7 ks TOO observations of LS V +44 17 — <span class="muted">Jan 2023</span></li>
-            <li>PI: NuSTAR 56 ks TOO observations of eRASSU J050810.4−660653 — <span class="muted">Dec 2021</span></li>
-            <li>PI: Swift 39 ks TOO observations of eRASSU J050810.4−660653 — <span class="muted">Dec 2021</span></li>
-            <li>PI: Swift 6 ks TOO observations of Swift J1808.4−1754 — <span class="muted">Aug 2021</span></li>
-          </ul>
-          <button class="btn toggle" aria-expanded="false">Show more</button>
+          <div class="row"><b>University of Turku</b><span class="right"><time datetime="2024">2024</time>–present</span></div>
+          <div class="muted">PhD in Astrophysics (Self-funded research supported by EDUFI and Wihuri grants)</div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="outreach">
-      <h2 class="section-title">Press &amp; Public Outreach</h2>
-      <ul>
-        <li>INTEGRAL Picture of the Month: Observations of RX J0440.9+4431 in the supercritical accretion regime — <span class="muted">Jun 2023</span></li>
-        <li>IKI RAS Press Release: RX J0440.9+4431 switched to the super-critical accretion regime — <span class="muted">Jun 2023</span></li>
-        <li>Main RAS Press Release: RX J0440.9+4431 transitions into super-critical accretion — <span class="muted">Jun 2023</span></li>
-      </ul>
-    </section>
+      <section id="experience" aria-labelledby="experience-title">
+        <h2 id="experience-title" class="section-title">Work Experience</h2>
+        <div class="card">
+          <div class="row"><b>Space Research Institute (IKI RAS)</b><span class="right"><time datetime="2019">2019</time>–<time datetime="2023">2023</time></span></div>
+          <div class="muted">Senior Laboratory Assistant (part-time)</div>
+        </div>
+        <div class="card">
+          <div class="row"><b>University of Turku</b><span class="right"><time datetime="2025">2025</time></span></div>
+          <div class="muted">Teaching Assistant/Demonstrator — Observational X-ray and Gamma-ray Astrophysics Course</div>
+        </div>
+      </section>
 
-    <section id="talks">
-      <h2 class="section-title">Talks</h2>
-      <ul>
-        <li><b>On the nature of the X-ray pulsar XTE J1859+083 and its broadband properties:</b>
-          <ul>
-            <li>Conference Fundamental and Applied Space Research 2021, IKI RAS — <span class="muted">Apr 2021</span></li>
-            <li>Invited Talk at St. Petersburg State University — <span class="muted">Dec 2021</span></li>
-            <li>Conference Astronomy and Space Exploration, Ural Federal University — <span class="muted">Jan 2022</span></li>
-          </ul>
-        </li>
-        <li><b>Study of the X-ray pulsars Swift J1808.4−1754 and eRASSU J050810.4−660653 based on space observatories' data:</b>
-          <ul>
-            <li>Conference Fundamental and Applied Space Research 2023, IKI RAS — <span class="muted">Apr 2023</span></li>
-          </ul>
-        </li>
-        <li><b>Study of the transition of the pulsar RX J0440.9+4431 to the super-critical accretion regime:</b>
-          <ul>
-            <li>Conference Physics of Neutron Stars 2023, Ioffe Institute — <span class="muted">Jul 2023</span></li>
-            <li>Invited Talk, Princeton University — <span class="muted">Sep 2023</span></li>
-            <li>Invited Talk, Ioffe Institute — <span class="muted">Sep 2023</span></li>
-            <li>Conference High-energy Astrophysics Today and Tomorrow HEA-2023, IKI RAS — <span class="muted">Dec 2023</span></li>
-          </ul>
-        </li>
-        <li><b>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806:</b>
-          <ul>
-            <li>Invited Talk, THEAPA Group Meeting, University of Maryland — <span class="muted">Mar 2025</span></li>
-          </ul>
-        </li>
-      </ul>
-    </section>
+      <section id="service" aria-labelledby="service-title">
+        <h2 id="service-title" class="section-title">Professional Service</h2>
+        <ul>
+          <li>Peer-review for <i>The Astrophysical Journal</i> — <span class="muted"><time datetime="2024">2024</time>–present</span></li>
+          <li>Peer-review for <i>Advances in Space Research</i> — <span class="muted"><time datetime="2024">2024</time>–present</span></li>
+          <li>Member of the Finnish Astronomical Society (FAS) — <span class="muted"><time datetime="2025">2025</time>–present</span></li>
+          <li>NewAthena Science Community Member — <span class="muted"><time datetime="2025">2025</time>–present</span></li>
+        </ul>
+      </section>
+
+      <section id="publications" aria-labelledby="publications-title">
+        <h2 id="publications-title" class="section-title">Publications — First Author</h2>
+        <ol class="pub">
+          <li>
+            <b><i>On the nature of the X-ray pulsar XTE J1859+083 and its broadband properties</i></b><br/>
+            <span class="muted">Salganik A., Tsygankov S. S., Djupvik A. A., Karasev D. I., Lutovinov A. A., Buckley D. A. H., Gromadzki M., Poutanen J.</span><br/>
+            <span><i>MNRAS</i> 509, 5955. <a href="https://doi.org/10.1093/mnras/stab3362" target="_blank" rel="noopener">DOI</a></span>
+            <span class="right">2022</span>
+          </li>
+          <li>
+            <b><i>Discovery of a pulse-phase-transient cyclotron line in the X-ray pulsar Swift J1808.4−1754 and identification of an optical companion</i></b><br/>
+            <span class="muted">Salganik A., Tsygankov S. S., Lutovinov A. A., Djupvik A. A., Karasev D. I., Molkov S. V.</span><br/>
+            <span><i>MNRAS</i> 514, 2707. <a href="https://doi.org/10.1093/mnras/stac1462" target="_blank" rel="noopener">DOI</a></span>
+            <span class="right">2022</span>
+          </li>
+          <li>
+            <b><i>First characterization of a new high-mass X-ray binary in LMC eRASSU J050810.4−660653 with SRG/ART-XC, NuSTAR, and Swift</i></b><br/>
+            <span class="muted">Salganik A., Tsygankov S. S., Lutovinov A. A., Mushtukov A. A., Mereminskiy I. A., Molkov S. V., Semena A. N.</span><br/>
+            <span><i>MNRAS</i> 514, 4018. <a href="https://doi.org/10.1093/mnras/stac1608" target="_blank" rel="noopener">DOI</a></span>
+            <span class="right">2022</span>
+          </li>
+          <li>
+            <b><i>RX J0440.9+4431: another supercritical X-ray pulsar</i></b><br/>
+            <span class="muted">Salganik A., Tsygankov S. S., Doroshenko V., Molkov S. V., Lutovinov A. A., Mushtukov A. A., Poutanen J.</span><br/>
+            <span><i>MNRAS</i> 524, 5213. <a href="https://doi.org/10.1093/mnras/stad2124" target="_blank" rel="noopener">DOI</a></span>
+            <span class="right">2023</span>
+          </li>
+          <li>
+            <b><i>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806</i></b><br/>
+            <span class="muted">Salganik A., Tsygankov S. S., Chernyakova M., Malyshev D., Poutanen J.</span><br/>
+            <span><i>A&amp;A</i> 698, A71. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
+            <span class="right">2025</span>
+          </li>
+        </ol>
+      </section>
+
+      <section id="grants" aria-labelledby="grants-title">
+        <h2 id="grants-title" class="section-title">Grants</h2>
+        <ul>
+          <li><b>EDUFI Fellowship</b>: Highly competitive fellowship supporting doctoral research (€17,100) — <span class="muted"><time datetime="2024-10">Oct 2024</time></span></li>
+          <li><b>Wihuri Foundation Grant</b>: Highly competitive grant supporting doctoral research (€62,000 total) — <span class="muted"><time datetime="2024-10">Oct 2024</time>, <time datetime="2025-10">Oct 2025</time></span></li>
+          <li><b>Frontiers in X-ray Polarimetry (FiXP) Academy travel grant</b> (€1200) — <span class="muted"><time datetime="2025-03">Mar 2025</time></span></li>
+        </ul>
+      </section>
+
+      <section id="awards" aria-labelledby="awards-title">
+        <h2 id="awards-title" class="section-title">Awards and Honors</h2>
+        <ul>
+          <li>Personal Scholarship of the Government of St. Petersburg in the field of Physics — <span class="muted"><time datetime="2018">2018</time>–<time datetime="2020">2020</time></span></li>
+          <li>IKI RAS Best Scientific Work Prize (for researchers under 35) — <span class="muted"><time datetime="2023">2023</time></span></li>
+          <li>Enhanced Academic Scholarship of St. Petersburg State University for academic and research excellence — <span class="muted"><time datetime="2020">2020</time>–<time datetime="2024">2024</time></span></li>
+        </ul>
+      </section>
+
+      <section id="proposals" aria-labelledby="proposals-title">
+        <h2 id="proposals-title" class="section-title">Accepted Proposals</h2>
+        <div class="grid two">
+          <div class="card">
+            <b>General Observer</b>
+            <ul id="go-list" class="collapsible-list" data-visible="3">
+              <li><b>PI:</b> Insight-HXMT proposal for observations of cyclotron line harmonics — <span class="muted"><time datetime="2024">2024</time></span></li>
+              <li><b>PI:</b> IXPE proposal for GX 1+4 observations — <span class="muted"><time datetime="2024">2024</time></span></li>
+              <li><b>Co-I:</b> IXPE proposal for 4U 1907+09 observations — <span class="muted"><time datetime="2023">2023</time></span></li>
+            </ul>
+            <button class="btn toggle" aria-expanded="false" aria-controls="go-list">Show more</button>
+          </div>
+          <div class="card">
+            <b>Director's Discretionary</b>
+            <ul id="ddt-list" class="collapsible-list" data-visible="5">
+              <li>PI: NuSTAR 140 ks TOO observations of SXP 31.0 — <span class="muted"><time datetime="2025-05">May 2025</time></span></li>
+              <li>PI: Swift 22 ks TOO observations of 2RXP J130159.6-635806 — <span class="muted"><time datetime="2024-09">Sep 2024</time>–<time datetime="2025-02">Feb 2025</time></span></li>
+              <li>PI: Swift 7 ks TOO observations of V0332+53 — <span class="muted"><time datetime="2024-10">Oct 2024</time></span></li>
+              <li>PI: Swift 10 ks TOO observations of AX J1910.7+0917 — <span class="muted"><time datetime="2024-05">May 2024</time>–<time datetime="2024-06">Jun 2024</time></span></li>
+              <li>PI: Swift 33 ks TOO observations of RX J0520.5−6932 — <span class="muted"><time datetime="2024-05">May 2024</time>–<time datetime="2024-08">Aug 2024</time></span></li>
+              <li>PI: NICER 49 ks TOO observations of RX J0520.5−6932 — <span class="muted"><time datetime="2024-04">Apr 2024</time>–<time datetime="2024-08">Aug 2024</time></span></li>
+              <li>PI: NICER 2 ks TOO observations of RX J0032.9−7348 — <span class="muted"><time datetime="2024-11">Nov 2024</time></span></li>
+              <li>PI: Swift 0.5 ks TOO observations of RX J0032.9−7348 — <span class="muted"><time datetime="2024-11">Nov 2024</time></span></li>
+              <li>PI: NICER 39 ks TOO observations of IGR J06074+2205 — <span class="muted"><time datetime="2023-10">Oct 2023</time></span></li>
+              <li>PI: NuSTAR 59 ks TOO observations of LS V +44 17 — <span class="muted"><time datetime="2023-01">Jan 2023</time>–<time datetime="2023-04">Apr 2023</time></span></li>
+              <li>PI: Swift 7 ks TOO observations of LS V +44 17 — <span class="muted"><time datetime="2023-01">Jan 2023</time></span></li>
+              <li>PI: NuSTAR 56 ks TOO observations of eRASSU J050810.4−660653 — <span class="muted"><time datetime="2021-12">Dec 2021</time></span></li>
+              <li>PI: Swift 39 ks TOO observations of eRASSU J050810.4−660653 — <span class="muted"><time datetime="2021-12">Dec 2021</time></span></li>
+              <li>PI: Swift 6 ks TOO observations of Swift J1808.4−1754 — <span class="muted"><time datetime="2021-08">Aug 2021</time></span></li>
+            </ul>
+            <button class="btn toggle" aria-expanded="false" aria-controls="ddt-list">Show more</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="outreach" aria-labelledby="outreach-title">
+        <h2 id="outreach-title" class="section-title">Press &amp; Public Outreach</h2>
+        <ul>
+          <li>INTEGRAL Picture of the Month: Observations of RX J0440.9+4431 in the supercritical accretion regime — <span class="muted"><time datetime="2023-06">Jun 2023</time></span></li>
+          <li>IKI RAS Press Release: RX J0440.9+4431 switched to the super-critical accretion regime — <span class="muted"><time datetime="2023-06">Jun 2023</time></span></li>
+          <li>Main RAS Press Release: RX J0440.9+4431 transitions into super-critical accretion — <span class="muted"><time datetime="2023-06">Jun 2023</time></span></li>
+        </ul>
+      </section>
+
+      <section id="talks" aria-labelledby="talks-title">
+        <h2 id="talks-title" class="section-title">Talks</h2>
+        <ul>
+          <li><b>On the nature of the X-ray pulsar XTE J1859+083 and its broadband properties:</b>
+            <ul>
+              <li>Conference Fundamental and Applied Space Research 2021, IKI RAS — <span class="muted"><time datetime="2021-04">Apr 2021</time></span></li>
+              <li>Invited Talk at St. Petersburg State University — <span class="muted"><time datetime="2021-12">Dec 2021</time></span></li>
+              <li>Conference Astronomy and Space Exploration, Ural Federal University — <span class="muted"><time datetime="2022-01">Jan 2022</time></span></li>
+            </ul>
+          </li>
+          <li><b>Study of the X-ray pulsars Swift J1808.4−1754 and eRASSU J050810.4−660653 based on space observatories' data:</b>
+            <ul>
+              <li>Conference Fundamental and Applied Space Research 2023, IKI RAS — <span class="muted"><time datetime="2023-04">Apr 2023</time></span></li>
+            </ul>
+          </li>
+          <li><b>Study of the transition of the pulsar RX J0440.9+4431 to the super-critical accretion regime:</b>
+            <ul>
+              <li>Conference Physics of Neutron Stars 2023, Ioffe Institute — <span class="muted"><time datetime="2023-07">Jul 2023</time></span></li>
+              <li>Invited Talk, Princeton University — <span class="muted"><time datetime="2023-09">Sep 2023</time></span></li>
+              <li>Invited Talk, Ioffe Institute — <span class="muted"><time datetime="2023-09">Sep 2023</time></span></li>
+              <li>Conference High-energy Astrophysics Today and Tomorrow HEA-2023, IKI RAS — <span class="muted"><time datetime="2023-12">Dec 2023</time></span></li>
+            </ul>
+          </li>
+          <li><b>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806:</b>
+            <ul>
+              <li>Invited Talk, THEAPA Group Meeting, University of Maryland — <span class="muted"><time datetime="2025-03">Mar 2025</time></span></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </main>
 
     <footer>
       <div class="small">© <span id="year"></span> Alexander Salganik. All rights reserved.</div>
     </footer>
   </div>
 
+  <!-- Year only -->
   <script>
-    const d = new Date();
-    document.getElementById('year').textContent = d.getFullYear();
-    document.getElementById('cv-date').textContent = d.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'2-digit'});
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
+  <!-- Collapsible lists with ARIA sync -->
   <script>
-    const sections = document.querySelectorAll('.collapsible-list');
-    sections.forEach(ul => {
-      const visible = parseInt(ul.dataset.visible || '3', 10);
-      const items = Array.from(ul.children).filter(li => li.tagName === 'LI');
-      const button = ul.parentElement.querySelector('.btn.toggle');
-      if (!button) return;
-      function apply(collapsed){
-        items.forEach((li, i) => li.hidden = collapsed && i >= visible);
-        button.textContent = collapsed ? 'Show more' : 'Show less';
-        button.setAttribute('aria-expanded', String(!collapsed));
-      }
-      let collapsed = true;
-      apply(collapsed);
-      button.addEventListener('click', () => { collapsed = !collapsed; apply(collapsed); });
-    });
-  </script>
-
-  <script>
-  (() => {
-    const DURATION = 600;
-    const supportsNative = 'scrollBehavior' in document.documentElement.style;
-    function smoothScrollTo(target) {
-      if (!target) return;
-      if (supportsNative) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
-      const start = window.pageYOffset;
-      const end = target.getBoundingClientRect().top + start - 12;
-      const startTime = performance.now();
-      function step(now) {
-        const t = Math.min(1, (now - startTime) / DURATION);
-        const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-        window.scrollTo(0, start + (end - start) * eased);
-        if (t < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('a[href^="#"]');
-      if (!a) return;
-      const id = decodeURIComponent(a.getAttribute('href').slice(1));
-      const target = document.getElementById(id);
-      if (!target) return;
-      e.preventDefault();
-      history.pushState(null, '', '#' + id);
-      smoothScrollTo(target);
-    });
-    function handleHash() {
-      const id = decodeURIComponent(location.hash.replace('#', ''));
-      if (!id) return;
-      const el = document.getElementById(id);
-      if (!el) return;
-      setTimeout(() => smoothScrollTo(el), 0);
-    }
-    window.addEventListener('load', handleHash);
-    window.addEventListener('hashchange', handleHash);
-  })();
-  </script>
-
-  <script>
-    const themeBtn = document.getElementById('theme-toggle');
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme === 'dark') {
-      document.body.classList.add('dark');
-      themeBtn.textContent = '☀️ Light Mode';
-    } else if (storedTheme === 'light') {
-      document.body.classList.add('light');
-      themeBtn.textContent = '🌙 Dark Mode';
-    }
-    themeBtn.addEventListener('click', () => {
-      if (document.body.classList.contains('dark')) {
-        document.body.classList.remove('dark');
-        document.body.classList.add('light');
-        localStorage.setItem('theme', 'light');
-        themeBtn.textContent = '🌙 Dark Mode';
-      } else if (document.body.classList.contains('light')) {
-        document.body.classList.remove('light');
-        document.body.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-        themeBtn.textContent = '☀️ Light Mode';
-      } else {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (prefersDark) {
-          document.body.classList.add('light');
-          localStorage.setItem('theme', 'light');
-          themeBtn.textContent = '🌙 Dark Mode';
-        } else {
-          document.body.classList.add('dark');
-          localStorage.setItem('theme', 'dark');
-          themeBtn.textContent = '☀️ Light Mode';
+    (function(){
+      const lists = document.querySelectorAll('.collapsible-list');
+      lists.forEach(ul => {
+        const visible = parseInt(ul.dataset.visible || '3', 10);
+        const items = Array.from(ul.children).filter(li => li.tagName === 'LI');
+        const button = document.querySelector('button[aria-controls="'+ul.id+'"]') ||
+                       ul.parentElement.querySelector('.btn.toggle');
+        if (!button) return;
+        if (!ul.id){
+          ul.id = 'list-' + Math.random().toString(36).slice(2);
+          button.setAttribute('aria-controls', ul.id);
         }
+        function apply(collapsed){
+          items.forEach((li, i) => li.hidden = collapsed && i >= visible);
+          button.textContent = collapsed ? 'Show more' : 'Show less';
+          button.setAttribute('aria-expanded', String(!collapsed));
+        }
+        let collapsed = true;
+        apply(collapsed);
+        button.addEventListener('click', () => { collapsed = !collapsed; apply(collapsed); });
+      });
+    })();
+  </script>
+
+  <!-- Smooth anchor scrolling fallback for old browsers -->
+  <script>
+    (function(){
+      const DURATION = 600;
+      const supportsNative = 'scrollBehavior' in document.documentElement.style;
+      function smoothScrollTo(target) {
+        if (!target) return;
+        if (supportsNative) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+        const start = window.pageYOffset;
+        const end = target.getBoundingClientRect().top + start - 12;
+        const startTime = performance.now();
+        function step(now) {
+          const t = Math.min(1, (now - startTime) / DURATION);
+          const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+          window.scrollTo(0, start + (end - start) * eased);
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
       }
-    });
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const id = decodeURIComponent(a.getAttribute('href').slice(1));
+        const target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        history.pushState(null, '', '#' + id);
+        smoothScrollTo(target);
+      });
+      function handleHash() {
+        const id = decodeURIComponent(location.hash.replace('#', ''));
+        if (!id) return;
+        const el = document.getElementById(id);
+        if (!el) return;
+        setTimeout(() => smoothScrollTo(el), 0);
+      }
+      window.addEventListener('load', handleHash);
+      window.addEventListener('hashchange', handleHash);
+    })();
+  </script>
+
+  <!-- Theme toggle (sync with data-theme) -->
+  <script>
+    (function(){
+      const btn = document.getElementById('theme-toggle');
+      function setTheme(t){
+        document.documentElement.dataset.theme = t;
+        localStorage.setItem('theme', t);
+        btn.textContent = t==='dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+      }
+      const cur = document.documentElement.dataset.theme || 'light';
+      setTheme(cur);
+      btn.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
+    })();
+  </script>
+
+  <!-- Scrollspy: set aria-current="true" on the active nav link -->
+  <script>
+    (function(){
+      const links = Array.from(document.querySelectorAll('nav.primary-nav a[href^="#"]'));
+      if (!links.length) return;
+
+      const map = new Map();
+      links.forEach(a => {
+        const id = decodeURIComponent(a.getAttribute('href').slice(1));
+        const sec = document.getElementById(id);
+        if (sec) map.set(sec, a);
+      });
+
+      function setCurrent(targetLink){
+        links.forEach(l => l.removeAttribute('aria-current'));
+        if (targetLink) targetLink.setAttribute('aria-current', 'true');
+      }
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          // choose the section with the largest visible area
+          const visible = entries
+            .filter(e => e.isIntersecting)
+            .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!visible) return;
+          setCurrent(map.get(visible.target));
+        }, {
+          root: null,
+          // top margin accounts for sticky nav so it switches a bit earlier
+          rootMargin: '-20% 0px -60% 0px',
+          threshold: [0, 0.25, 0.5, 0.75, 1]
+        });
+
+        map.forEach((_, section) => observer.observe(section));
+      } else {
+        const sections = Array.from(map.keys());
+        function onScroll(){
+          const y = window.scrollY + 80; // approx nav height
+          let current = sections[0];
+          for (const s of sections){
+            if (s.offsetTop <= y) current = s;
+          }
+          setCurrent(map.get(current));
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+
+      // Immediate feedback on click
+      links.forEach(a => a.addEventListener('click', () => setCurrent(a)));
+    })();
   </script>
 </body>
 </html>
