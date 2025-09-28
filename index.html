@@ -159,6 +159,28 @@
     :focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
     nav{ position: sticky; top: 0; background: var(--bg); z-index: 10; }
 
+            /* Desktop sticky nav */
+    @media (min-width: 768px){
+      nav{
+        position: sticky;
+        top: 0;                 /* sticks to top */
+        background: var(--bg);  /* avoid transparency over content */
+        z-index: 10;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+    }
+    
+    /* highlight the active link */
+    nav a[aria-current="true"]{
+      color: var(--text);
+      background: var(--card);
+      font-weight: 600;
+      border-radius: 10px;
+    }
+    
+    /* helpful when scrolling to anchors so content isn't hidden behind sticky nav */
+    section{ scroll-margin-top: 64px; }
   </style>
 
   <script type="application/ld+json">
@@ -174,6 +196,66 @@
   }
   </script>
 </head>
+  <script>
+(() => {
+  const links = [...document.querySelectorAll('nav a[href^="#"]')];
+  if (!links.length) return;
+
+  // Map #ids to sections and to their nav link
+  const map = new Map();
+  links.forEach(a => {
+    const id = decodeURIComponent(a.getAttribute('href').slice(1));
+    const sec = document.getElementById(id);
+    if (sec) map.set(sec, a);
+  });
+
+  // Helper to update aria-current on the correct link
+  function setCurrent(targetLink){
+    links.forEach(l => l.removeAttribute('aria-current'));
+    if (targetLink) targetLink.setAttribute('aria-current', 'true');
+  }
+
+  // Prefer IntersectionObserver for performance
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      // Pick the most visible section in view
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+
+      const link = map.get(visible.target);
+      setCurrent(link);
+    }, {
+      // Start observing a bit above the section so the highlight changes sooner
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: [0, 0.25, 0.5, 0.75, 1]
+    });
+
+    map.forEach((_, section) => observer.observe(section));
+  } else {
+    // Fallback: update on scroll
+    const sections = [...map.keys()];
+    function onScroll(){
+      const y = window.scrollY + 80; // compensate for sticky nav height
+      let current = sections[0];
+      for (const s of sections){
+        if (s.offsetTop <= y) current = s;
+      }
+      setCurrent(map.get(current));
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // Also update immediately when clicking a nav link (snappier UX)
+  links.forEach(a => {
+    a.addEventListener('click', () => setCurrent(a));
+  });
+})();
+</script>
+
 <body>
   <div class="container">
     <header>
