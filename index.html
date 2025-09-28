@@ -11,11 +11,11 @@
   <meta property="og:description" content="Astrophysicist (X-ray pulsars). Publications, grants, proposals, outreach, contacts." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://salganik.me" />
-  <meta property="og:image" content="/assets/og.jpg" />
+  <meta property="og:image" content="assets/og.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicon (replace these files later) -->
-  <link rel="icon" href="/assets/favicon.ico" />
+  <link rel="icon" href="assets/favicon.ico" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,6 +76,11 @@
     .orcid svg{width:14px; height:14px}
       .btn.toggle{margin-top:10px; font-weight:600}
     .collapsible-list li[hidden]{display:none}
+      /* Explicit theme overrides (Light/Dark) in addition to auto via prefers-color-scheme */
+    :root[data-theme="light"]{ --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb; --accent:#1565C0; --link-strong:#C62828; }
+    :root[data-theme="dark"]{ --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b; }
+
+    .theme-switch{margin-left:8px}
   </style>
 
   <!-- Schema.org Person -->
@@ -102,13 +107,14 @@
         <h1>Alexander Salganik</h1>
         <div class="subtitle">PhD Student in Astrophysics — University of Turku, Finland</div>
         <div class="actions">
-          <a class="btn primary" href="/cv/Alexander_Salganik_CV.pdf" download>Download CV (PDF)</a>
+          <a class="btn primary" href="cv/Alexander_Salganik_CV.pdf" download="Alexander_Salganik_CV.pdf">Download CV (PDF)</a>
           <a class="btn" href="mailto:alsalganik@gmail.com">alsalganik@gmail.com</a>
           <a class="btn" href="mailto:alexander.a.salganik@utu.fi">alexander.a.salganik@utu.fi</a>
           <a class="btn orcid" href="https://orcid.org/0000-0003-2609-8838" rel="me noopener" target="_blank" aria-label="ORCID">
             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="128" cy="128" r="120" fill="#A6CE39"/><path d="M94 70h20v116H94zM141 92a28 28 0 1 1 0 56 28 28 0 0 1 0-56m0-20a48 48 0 1 0 0 96 48 48 0 0 0 0-96z" fill="#fff"/></svg>
             ORCID
           </a>
+          <button id="theme-btn" class="btn theme-switch" aria-haspopup="listbox" aria-expanded="false" title="Theme: Auto/Light/Dark">🌗 Theme: Auto</button>
         </div>
         <nav>
           <a href="#summary">Summary</a>
@@ -202,10 +208,10 @@
           <span class="right">2023</span>
         </li>
         <li>
-          <b><i>Discovery of a bimodal luminosity distribution in the persistent Be/X-ray pulsar 2RXP J130159.6−635806</i></b><br/>
+          <b><i>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806</i></b><br/>
           <span class="muted">Salganik A., Tsygankov S. S., Chernyakova M., Malyshev D., Poutanen J.</span><br/>
-          <span><i>A&amp;A</i> 698, A71. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
-          <span class="right">2025</span>          
+          <span>Accepted to <i>A&amp;A</i>. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
+          <span class="right">2025</span>
         </li>
       </ol>
     </section>
@@ -341,6 +347,36 @@
         let collapsed = true;
         apply(collapsed);
         button.addEventListener('click', () => { collapsed = !collapsed; apply(collapsed); });
+      });
+    })();
+  </script>
+  <script>
+    // Theme: auto (system) / light / dark with persistence
+    (function(){
+      const KEY = 'theme-pref'; // values: 'auto' | 'light' | 'dark'
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-btn');
+      const metaTheme = document.querySelector('meta[name="theme-color"]') || (function(){
+        const m=document.createElement('meta'); m.name='theme-color'; document.head.appendChild(m); return m;})();
+
+      function apply(theme){
+        if(theme === 'light'){ root.setAttribute('data-theme','light'); }
+        else if(theme === 'dark'){ root.setAttribute('data-theme','dark'); }
+        else { root.removeAttribute('data-theme'); theme='auto'; }
+        btn.textContent = `🌗 Theme: ${theme.charAt(0).toUpperCase()+theme.slice(1)}`;
+        // update meta theme-color for nicer mobile browser UI
+        const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+        metaTheme.setAttribute('content', bg || '#ffffff');
+        localStorage.setItem(KEY, theme);
+      }
+      function next(curr){ return curr==='auto' ? 'dark' : curr==='dark' ? 'light' : 'auto'; }
+      const saved = localStorage.getItem(KEY) || 'auto';
+      apply(saved);
+      btn.addEventListener('click', ()=> apply(next(localStorage.getItem(KEY) || 'auto')));
+      // Also react to system theme changes when in auto
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      mq.addEventListener && mq.addEventListener('change', ()=>{
+        if((localStorage.getItem(KEY) || 'auto')==='auto') apply('auto');
       });
     })();
   </script>
