@@ -82,6 +82,63 @@
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce){ html { scroll-behavior: auto; } }
     section { scroll-margin-top: 12px; }
+    @media (max-width: 768px){
+      .container{ padding: 16px; }
+    
+      /* Stack header vertically and keep photo from shrinking */
+      header{ flex-direction: column; align-items: flex-start; gap: 14px; }
+      header img{
+        width: clamp(72px, 22vw, 128px);
+        height: clamp(72px, 22vw, 128px);
+        flex-shrink: 0;
+      }
+      h1{ font-size: clamp(24px, 8vw, 36px); }
+      .subtitle{ font-size: 14px; }
+    
+      /* Buttons: larger tap area */
+      .actions{ gap: 8px; }
+      .btn{ padding: 12px 16px; border-radius: 12px; font-size: 14px; }
+    
+      /* Make the section title a touch smaller on phones */
+      .section-title{ font-size: 20px; }
+    
+      /* Navigation: allow horizontal scroll on overflow */
+      nav{
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        gap: 6px;
+        padding-bottom: 6px;
+      }
+      nav::-webkit-scrollbar{ display: none; }
+      nav a{ padding: 8px 10px; font-size: 14px; white-space: nowrap; }
+    
+      /* Cards & rows: prevent date column from squeezing content */
+      .row{ flex-direction: column; gap: 6px; }
+      .right{ white-space: normal; }
+    
+      /* Two-column grids collapse to single (safety, though it's already set) */
+      .grid.two{ grid-template-columns: 1fr; }
+    
+      /* Lists: a bit tighter on phones */
+      ul{ padding-left: 16px; }
+      li{ margin: 4px 0; }
+    
+      /* Publications: tighten spacing */
+      .pub li{ margin: 10px 0; }
+    }
+    
+    /* Tiny phones (<= 380px): slightly smaller buttons/text */
+    @media (max-width: 380px){
+      .btn{ padding: 10px 14px; font-size: 13px; }
+      .section-title{ font-size: 18px; }
+    }
+    
+    /* iOS text zoom fix */
+    html{ -webkit-text-size-adjust: 100%; }
+    
+    /* Images never overflow container */
+    img{ max-width: 100%; height: auto; }
   </style>
 
   <script type="application/ld+json">
