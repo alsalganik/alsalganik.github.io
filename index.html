@@ -81,6 +81,23 @@
     :root[data-theme="dark"]{ --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b; }
 
     .theme-switch{margin-left:8px}
+
+    /* Enable smooth scrolling for anchor links */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+      scroll-behavior: auto;
+     }
+}
+
+/* Add a small offset so sections are not flush with the top */
+section {
+  scroll-margin-top: 12px;
+}
+
   </style>
 
   <!-- Schema.org Person -->
