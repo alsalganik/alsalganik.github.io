@@ -14,97 +14,75 @@
   <meta property="og:image" content="assets/og.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Favicon (replace these files later) -->
+  <!-- Favicon -->
   <link rel="icon" href="assets/favicon.ico" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Basic styles with dark-mode support -->
-<style>
-  :root {
-    --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef;
-    --link:#0a66c2; --chip:#eef3fb; --accent:#1565C0; --link-strong:#C62828;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633;
-      --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b;
+  <!-- Styles -->
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb;
+      --accent:#1565C0; --link-strong:#C62828;
     }
-  }
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b; }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.6}
+    .container{max-width:960px; margin:0 auto; padding:24px}
 
-  * { box-sizing:border-box }
-  html, body { height:100% }
-  body {
-    margin:0;
-    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    line-height:1.6;
-  }
+    header{display:flex; gap:20px; align-items:center; padding:24px 0; border-bottom:1px solid var(--border)}
+    header img{width:88px; height:88px; border-radius:50%; object-fit:cover; border:1px solid var(--border)}
+    h1{font-size:clamp(28px,5vw,40px); line-height:1.15; margin:0}
+    .subtitle{color:var(--muted); margin-top:6px}
 
-  .container { max-width:960px; margin:0 auto; padding:24px }
+    .actions{margin-top:14px; display:flex; flex-wrap:wrap; gap:10px}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--border); background:var(--card); color:var(--text); border-radius:12px; text-decoration:none; font-weight:600}
+    .btn.primary{background:#111827; color:#fff; border-color:#111827}
+    @media (prefers-color-scheme: dark){ .btn.primary{ background:#2563eb; border-color:#2563eb; } }
+    .btn:hover{filter:brightness(0.98)}
 
-  header { display:flex; gap:20px; align-items:center; padding:24px 0; border-bottom:1px solid var(--border) }
-  header img { width:88px; height:88px; border-radius:50%; object-fit:cover; border:1px solid var(--border) }
-  h1 { font-size:clamp(28px,5vw,40px); line-height:1.15; margin:0 }
-  .subtitle { color:var(--muted); margin-top:6px }
+    nav{display:flex; gap:8px; padding:14px 0; flex-wrap:wrap}
+    nav a{color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px}
+    nav a:hover{background:var(--card); color:var(--text)}
 
-  .actions { margin-top:14px; display:flex; flex-wrap:wrap; gap:10px }
-  .btn {
-    display:inline-flex; align-items:center; gap:8px;
-    padding:10px 14px; border:1px solid var(--border); background:var(--card);
-    color:var(--text); border-radius:12px; text-decoration:none; font-weight:600;
-  }
-  .btn.primary { background:#111827; color:#fff; border-color:#111827 }
-  @media (prefers-color-scheme: dark) {
-    .btn.primary { background:#2563eb; border-color:#2563eb }
-  }
-  .btn:hover { filter:brightness(0.98) }
+    section{padding:28px 0; border-bottom:1px solid var(--border)}
+    section:last-of-type{border-bottom:none}
+    .section-title{font-size:22px; margin:0 0 12px 0; color:var(--accent)}
+    .muted{color:var(--muted)}
 
-  nav { display:flex; gap:8px; padding:14px 0; flex-wrap:wrap }
-  nav a { color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px }
-  nav a:hover { background:var(--card); color:var(--text) }
+    .grid{display:grid; grid-template-columns:1fr; gap:14px}
+    @media(min-width:768px){ .grid.two{grid-template-columns:1fr 1fr} }
 
-  section { padding:28px 0; border-bottom:1px solid var(--border) }
-  section:last-of-type { border-bottom:none }
-  .section-title { font-size:22px; margin:0 0 12px 0; color:var(--accent) }
-  .muted { color:var(--muted) }
+    .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px}
+    .row{display:flex; justify-content:space-between; gap:16px}
+    .right{white-space:nowrap; color:var(--muted)}
 
-  .grid { display:grid; grid-template-columns:1fr; gap:14px }
-  @media(min-width:768px) { .grid.two { grid-template-columns:1fr 1fr } }
+    ul{margin:0; padding-left:18px}
+    li{margin:6px 0}
 
-  .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px }
-  .row { display:flex; justify-content:space-between; gap:16px }
-  .right { white-space:nowrap; color:var(--muted) }
+    .pub li{margin:12px 0}
+    .pub b i{color:var(--accent)}
 
-  ul { margin:0; padding-left:18px }
-  li { margin:6px 0 }
+    footer{padding:28px 0; color:var(--muted)}
+    .small{font-size:13px}
 
-  .pub li { margin:12px 0 }
-  .pub b i { color:var(--accent) }
+    .chip{display:inline-block; padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border); font-size:13px; margin-right:6px}
+    .orcid{display:inline-flex; align-items:center; gap:6px}
+    .orcid svg{width:14px; height:14px}
+    .btn.toggle{margin-top:10px; font-weight:600}
+    .collapsible-list li[hidden]{display:none}
 
-  footer { padding:28px 0; color:var(--muted) }
-  .small { font-size:13px }
-
-  .chip {
-    display:inline-block; padding:6px 10px; border-radius:999px; background:var(--chip);
-    border:1px solid var(--border); font-size:13px; margin-right:6px
-  }
-  .orcid { display:inline-flex; align-items:center; gap:6px }
-  .orcid svg { width:14px; height:14px }
-  .btn.toggle { margin-top:10px; font-weight:600 }
-  .collapsible-list li[hidden] { display:none }
-
-  /* Smooth scrolling for anchor navigation */
-  html { scroll-behavior:smooth; }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior:auto; }
-  }
-  section { scroll-margin-top: 12px; }
-</style>
-
+    /* Smooth scrolling for anchors (native) */
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce){ html { scroll-behavior: auto; } }
+    /* Offset so section titles are not flush with the top */
+    section { scroll-margin-top: 12px; }
+  </style>
 
   <!-- Schema.org Person -->
   <script type="application/ld+json">
@@ -115,9 +93,7 @@
     "jobTitle": "PhD Student in Astrophysics",
     "affiliation": {"@type": "Organization", "name": "University of Turku"},
     "email": "mailto:alsalganik@gmail.com",
-    "sameAs": [
-      "https://orcid.org/0000-0003-2609-8838"
-    ],
+    "sameAs": ["https://orcid.org/0000-0003-2609-8838"],
     "url": "https://salganik.me"
   }
   </script>
@@ -137,7 +113,6 @@
             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="128" cy="128" r="120" fill="#A6CE39"/><path d="M94 70h20v116H94zM141 92a28 28 0 1 1 0 56 28 28 0 0 1 0-56m0-20a48 48 0 1 0 0 96 48 48 0 0 0 0-96z" fill="#fff"/></svg>
             ORCID
           </a>
-          <button id="theme-btn" class="btn theme-switch" aria-haspopup="listbox" aria-expanded="false" title="Theme: Auto/Light/Dark">🌗 Theme: Auto</button>
         </div>
         <nav>
           <a href="#summary">Summary</a>
@@ -231,9 +206,9 @@
           <span class="right">2023</span>
         </li>
         <li>
-          <b><i>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806</i></b><br/>
+          <b><i>Discovery of a bimodal luminosity distribution in the persistent Be/X-ray pulsar 2RXP J130159.6−635806</i></b><br/>
           <span class="muted">Salganik A., Tsygankov S. S., Chernyakova M., Malyshev D., Poutanen J.</span><br/>
-          <span>Accepted to <i>A&amp;A</i>. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
+          <span><i>A&amp;A</i> 698, A71. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
           <span class="right">2025</span>
         </li>
       </ol>
@@ -349,10 +324,10 @@
     (function(){
       const d = new Date();
       document.getElementById('year').textContent = d.getFullYear();
-      // If you want a static CV date, replace this with a string.
       document.getElementById('cv-date').textContent = d.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'2-digit'});
     })();
   </script>
+
   <script>
     // Collapsible lists: show first N items; toggle shows all/less
     (function(){
@@ -373,35 +348,59 @@
       });
     })();
   </script>
-  <script>
-    // Theme: auto (system) / light / dark with persistence
-    (function(){
-      const KEY = 'theme-pref'; // values: 'auto' | 'light' | 'dark'
-      const root = document.documentElement;
-      const btn = document.getElementById('theme-btn');
-      const metaTheme = document.querySelector('meta[name="theme-color"]') || (function(){
-        const m=document.createElement('meta'); m.name='theme-color'; document.head.appendChild(m); return m;})();
 
-      function apply(theme){
-        if(theme === 'light'){ root.setAttribute('data-theme','light'); }
-        else if(theme === 'dark'){ root.setAttribute('data-theme','dark'); }
-        else { root.removeAttribute('data-theme'); theme='auto'; }
-        btn.textContent = `🌗 Theme: ${theme.charAt(0).toUpperCase()+theme.slice(1)}`;
-        // update meta theme-color for nicer mobile browser UI
-        const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
-        metaTheme.setAttribute('content', bg || '#ffffff');
-        localStorage.setItem(KEY, theme);
+  <!-- Smooth scroll fallback (works even where CSS scroll-behavior isn't supported) -->
+  <script>
+  (() => {
+    const DURATION = 600; // ms
+    const supportsNative = 'scrollBehavior' in document.documentElement.style;
+
+    function smoothScrollTo(target) {
+      if (!target) return;
+
+      // Use native smooth scroll when available
+      if (supportsNative) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
       }
-      function next(curr){ return curr==='auto' ? 'dark' : curr==='dark' ? 'light' : 'auto'; }
-      const saved = localStorage.getItem(KEY) || 'auto';
-      apply(saved);
-      btn.addEventListener('click', ()=> apply(next(localStorage.getItem(KEY) || 'auto')));
-      // Also react to system theme changes when in auto
-      const mq = window.matchMedia('(prefers-color-scheme: dark)');
-      mq.addEventListener && mq.addEventListener('change', ()=>{
-        if((localStorage.getItem(KEY) || 'auto')==='auto') apply('auto');
-      });
-    })();
+
+      // Fallback animation (easeInOut)
+      const start = window.pageYOffset;
+      const end = target.getBoundingClientRect().top + start - 12; // 12px matches scroll-margin-top
+      const startTime = performance.now();
+
+      function step(now) {
+        const t = Math.min(1, (now - startTime) / DURATION);
+        const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        window.scrollTo(0, start + (end - start) * eased);
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    // Handle clicks on in-page anchors
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const id = decodeURIComponent(a.getAttribute('href').slice(1));
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      history.pushState(null, '', '#' + id);
+      smoothScrollTo(target);
+    });
+
+    // Smooth scroll on hash navigation (direct link / hash change)
+    function handleHash() {
+      const id = decodeURIComponent(location.hash.replace('#', ''));
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      setTimeout(() => smoothScrollTo(el), 0);
+    }
+    window.addEventListener('load', handleHash);
+    window.addEventListener('hashchange', handleHash);
+  })();
   </script>
 </body>
 </html>
