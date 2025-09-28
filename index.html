@@ -6,7 +6,6 @@
   <title>Alexander Salganik — Astrophysics CV</title>
   <meta name="description" content="Online CV of Alexander Salganik, PhD student in Astrophysics at the University of Turku. Publications (MNRAS, A&A), projects, grants, proposals, outreach, and contact details." />
 
-  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Alexander Salganik — CV" />
   <meta property="og:description" content="Astrophysicist (X-ray pulsars). Publications, grants, proposals, outreach, contacts." />
   <meta property="og:type" content="website" />
@@ -14,14 +13,10 @@
   <meta property="og:image" content="assets/og.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Favicon -->
   <link rel="icon" href="assets/favicon.ico" />
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Styles -->
   <style>
     :root{
       --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb;
@@ -29,6 +24,12 @@
     }
     @media (prefers-color-scheme: dark){
       :root{ --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b; }
+    }
+    body.dark {
+      --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b;
+    }
+    body.light {
+      --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb; --accent:#1565C0; --link-strong:#C62828;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -41,10 +42,11 @@
     .subtitle{color:var(--muted); margin-top:6px}
 
     .actions{margin-top:14px; display:flex; flex-wrap:wrap; gap:10px}
-    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--border); background:var(--card); color:var(--text); border-radius:12px; text-decoration:none; font-weight:600}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--border); background:var(--card); color:var(--text); border-radius:12px; text-decoration:none; font-weight:600; cursor:pointer}
     .btn.primary{background:#111827; color:#fff; border-color:#111827}
     @media (prefers-color-scheme: dark){ .btn.primary{ background:#2563eb; border-color:#2563eb; } }
     .btn:hover{filter:brightness(0.98)}
+    .btn.toggle-theme{margin-left:6px}
 
     nav{display:flex; gap:8px; padding:14px 0; flex-wrap:wrap}
     nav a{color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px}
@@ -77,14 +79,11 @@
     .btn.toggle{margin-top:10px; font-weight:600}
     .collapsible-list li[hidden]{display:none}
 
-    /* Smooth scrolling for anchors (native) */
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce){ html { scroll-behavior: auto; } }
-    /* Offset so section titles are not flush with the top */
     section { scroll-margin-top: 12px; }
   </style>
 
-  <!-- Schema.org Person -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -113,6 +112,7 @@
             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="128" cy="128" r="120" fill="#A6CE39"/><path d="M94 70h20v116H94zM141 92a28 28 0 1 1 0 56 28 28 0 0 1 0-56m0-20a48 48 0 1 0 0 96 48 48 0 0 0 0-96z" fill="#fff"/></svg>
             ORCID
           </a>
+          <button id="theme-toggle" class="btn toggle-theme" aria-label="Toggle color theme">🌙 Dark Mode</button>
         </div>
         <nav>
           <a href="#summary">Summary</a>
@@ -206,11 +206,12 @@
           <span class="right">2023</span>
         </li>
         <li>
-        <b><i>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806</i></b><br/>
-        <span class="muted">Salganik A., Tsygankov S. S., Chernyakova M., Malyshev D., Poutanen J.</span><br/>
-        <span>Accepted to <i>A&amp;A</i>. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
-        <span class="right">2025</span>
+          <b><i>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806</i></b><br/>
+          <span class="muted">Salganik A., Tsygankov S. S., Chernyakova M., Malyshev D., Poutanen J.</span><br/>
+          <span><i>A&amp;A</i>, 698, A71. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
+          <span class="right">2025</span>
         </li>
+
       </ol>
     </section>
 
@@ -320,55 +321,42 @@
   </div>
 
   <script>
-    // Fill dates dynamically
-    (function(){
-      const d = new Date();
-      document.getElementById('year').textContent = d.getFullYear();
-      document.getElementById('cv-date').textContent = d.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'2-digit'});
-    })();
+    const d = new Date();
+    document.getElementById('year').textContent = d.getFullYear();
+    document.getElementById('cv-date').textContent = d.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'2-digit'});
   </script>
 
   <script>
-    // Collapsible lists: show first N items; toggle shows all/less
-    (function(){
-      const sections = document.querySelectorAll('.collapsible-list');
-      sections.forEach(ul => {
-        const visible = parseInt(ul.dataset.visible || '3', 10);
-        const items = Array.from(ul.children).filter(li => li.tagName === 'LI');
-        const button = ul.parentElement.querySelector('.btn.toggle');
-        if (!button) return;
-        function apply(collapsed){
-          items.forEach((li, i) => li.hidden = collapsed && i >= visible);
-          button.textContent = collapsed ? 'Show more' : 'Show less';
-          button.setAttribute('aria-expanded', String(!collapsed));
-        }
-        let collapsed = true;
-        apply(collapsed);
-        button.addEventListener('click', () => { collapsed = !collapsed; apply(collapsed); });
-      });
-    })();
+    const sections = document.querySelectorAll('.collapsible-list');
+    sections.forEach(ul => {
+      const visible = parseInt(ul.dataset.visible || '3', 10);
+      const items = Array.from(ul.children).filter(li => li.tagName === 'LI');
+      const button = ul.parentElement.querySelector('.btn.toggle');
+      if (!button) return;
+      function apply(collapsed){
+        items.forEach((li, i) => li.hidden = collapsed && i >= visible);
+        button.textContent = collapsed ? 'Show more' : 'Show less';
+        button.setAttribute('aria-expanded', String(!collapsed));
+      }
+      let collapsed = true;
+      apply(collapsed);
+      button.addEventListener('click', () => { collapsed = !collapsed; apply(collapsed); });
+    });
   </script>
 
-  <!-- Smooth scroll fallback (works even where CSS scroll-behavior isn't supported) -->
   <script>
   (() => {
-    const DURATION = 600; // ms
+    const DURATION = 600;
     const supportsNative = 'scrollBehavior' in document.documentElement.style;
-
     function smoothScrollTo(target) {
       if (!target) return;
-
-      // Use native smooth scroll when available
       if (supportsNative) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
-
-      // Fallback animation (easeInOut)
       const start = window.pageYOffset;
-      const end = target.getBoundingClientRect().top + start - 12; // 12px matches scroll-margin-top
+      const end = target.getBoundingClientRect().top + start - 12;
       const startTime = performance.now();
-
       function step(now) {
         const t = Math.min(1, (now - startTime) / DURATION);
         const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
@@ -377,8 +365,6 @@
       }
       requestAnimationFrame(step);
     }
-
-    // Handle clicks on in-page anchors
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[href^="#"]');
       if (!a) return;
@@ -389,8 +375,6 @@
       history.pushState(null, '', '#' + id);
       smoothScrollTo(target);
     });
-
-    // Smooth scroll on hash navigation (direct link / hash change)
     function handleHash() {
       const id = decodeURIComponent(location.hash.replace('#', ''));
       if (!id) return;
@@ -401,6 +385,42 @@
     window.addEventListener('load', handleHash);
     window.addEventListener('hashchange', handleHash);
   })();
+  </script>
+
+  <script>
+    const themeBtn = document.getElementById('theme-toggle');
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark') {
+      document.body.classList.add('dark');
+      themeBtn.textContent = '☀️ Light Mode';
+    } else if (storedTheme === 'light') {
+      document.body.classList.add('light');
+      themeBtn.textContent = '🌙 Dark Mode';
+    }
+    themeBtn.addEventListener('click', () => {
+      if (document.body.classList.contains('dark')) {
+        document.body.classList.remove('dark');
+        document.body.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        themeBtn.textContent = '🌙 Dark Mode';
+      } else if (document.body.classList.contains('light')) {
+        document.body.classList.remove('light');
+        document.body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeBtn.textContent = '☀️ Light Mode';
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+          document.body.classList.add('light');
+          localStorage.setItem('theme', 'light');
+          themeBtn.textContent = '🌙 Dark Mode';
+        } else {
+          document.body.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+          themeBtn.textContent = '☀️ Light Mode';
+        }
+      }
+    });
   </script>
 </body>
 </html>
