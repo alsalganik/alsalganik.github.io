@@ -688,6 +688,44 @@
       });
     })();
     </script>
+    <script>
+      (function(){
+        // Turn publication years into right-aligned date badges and make a two-column row
+        document.querySelectorAll('ol.pub > li').forEach(li => {
+          const right = li.querySelector('span.right');
+          if (!right) return;
+
+          const year = (right.textContent || '').trim();
+          if (!year) return;
+
+          // Build a badge
+          const badge = document.createElement('span');
+          badge.className = 'date-badge';
+          badge.textContent = year;
+
+          const dates = document.createElement('span');
+          dates.className = 'dates';
+          dates.appendChild(badge);
+
+          // Right/meta column
+          const meta = document.createElement('div');
+          meta.className = 'item-meta';
+          meta.appendChild(dates);
+
+          // Left/main column: move everything except the original .right node
+          const main = document.createElement('div');
+          main.className = 'item-main';
+          Array.from(li.childNodes).forEach(n => { if (n !== right) main.appendChild(n); });
+
+          // Rebuild <li>
+          li.textContent = '';
+          li.classList.add('list-row');
+          li.appendChild(main);
+          li.appendChild(meta);
+        });
+      })();
+    </script>
+
     
 </body>
 </html>
