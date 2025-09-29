@@ -199,6 +199,25 @@
     
     /* Make all muted date text consistent (we now rely on badges for color) */
     .muted time{ color:inherit }
+    .item-main, .pub li b, .pub li span, .list-row .item-main {
+      overflow-wrap: break-word;   /* modern */
+      word-wrap: break-word;       /* legacy */
+      hyphens: auto;               /* allow hyphenation if locale supports */
+    }
+
+    /* Optional: make <b> titles block-level so they wrap nicely */
+    .pub li b {
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    /* Add some spacing between title and meta (dates) in pub/talks */
+    .list-row {
+      align-items: flex-start;
+    }
+    .list-row .item-meta {
+      margin-left: 12px;
+    }
   </style>
 
   <!-- Person structured data -->
