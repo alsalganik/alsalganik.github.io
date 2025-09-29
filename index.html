@@ -290,7 +290,23 @@
     .list-row {
       scroll-margin-top: calc(var(--nav-h) + 16px);
     }
-
+    section > div,
+    section > ul,
+    section > ol,
+    section > p,
+    .chip {
+      margin-top: 12px;   /* space above */
+      margin-bottom: 12px;/* space below */
+    }
+    .chip {
+      display: inline-block;
+      padding: 6px 12px;
+      margin: 6px;              /* space around each chip */
+      border-radius: 999px;
+      background: var(--chip);
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
   </style>
 
   <!-- Person structured data -->
