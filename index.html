@@ -277,6 +277,19 @@
     .list-row {
       scroll-margin-top: 80px;
     }
+    :root {
+      --nav-h: 64px; /* height of sticky navigation bar */
+    }
+    @media (max-width: 767px){
+      :root { --nav-h: 0px; } /* on mobile, nav is not sticky */
+    }
+
+    /* give all sections and list items a top margin when scrolled into view */
+    section,
+    li,
+    .list-row {
+      scroll-margin-top: calc(var(--nav-h) + 16px);
+    }
 
   </style>
 
@@ -550,26 +563,51 @@
 
   <!-- Smooth anchor scrolling fallback for old browsers -->
     <script>
-      (function(){
-        const DURATION = 600;
-        const supportsNative = 'scrollBehavior' in document.documentElement.style;
+    (function(){
+      const DURATION = 600;
+      const supportsNative = 'scrollBehavior' in document.documentElement.style;
 
-        function smoothScrollTo(target) {
-          if (!target) return;
-          if (supportsNative) { 
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          } else {
-            const start = window.pageYOffset;
-            const end = target.getBoundingClientRect().top + start - 12;
-            const startTime = performance.now();
-            function step(now) {
-              const t = Math.min(1, (now - startTime) / DURATION);
-              const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-              window.scrollTo(0, start + (end - start) * eased);
-              if (t < 1) requestAnimationFrame(step);
-            }
-            requestAnimationFrame(step);
+      function smoothScrollTo(target) {
+        if (!target) return;
+        const nav = document.querySelector('nav.primary-nav');
+        const navH = nav ? nav.offsetHeight : 0;
+        const start = window.pageYOffset;
+        const end = target.getBoundingClientRect().top + start - navH;
+
+        if (supportsNative) {
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+          setTimeout(()=>window.scrollBy(0,-navH),10); // корректируем
+        } else {
+          const startTime = performance.now();
+          function step(now){
+            const t = Math.min(1,(now-startTime)/DURATION);
+            const eased = t<0.5?2*t*t:-1+(4-2*t)*t;
+            window.scrollTo(0,start+(end-start)*eased);
+            if(t<1) requestAnimationFrame(step);
           }
+          requestAnimationFrame(step);
+        }
+      }
+
+      document.addEventListener('click', e=>{
+        const a = e.target.closest('nav.primary-nav a[href^="#"]');
+        if(!a) return;
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        smoothScrollTo(target);
+        history.replaceState(null,'',location.pathname+location.search);
+      });
+
+      window.addEventListener('load', ()=>{
+        const id = location.hash.replace('#','');
+        if(!id) return;
+        const el = document.getElementById(id);
+        if(!el) return;
+        setTimeout(()=>smoothScrollTo(el),0);
+        history.replaceState(null,'',location.pathname+location.search);
+      });
+    })();
         }
 
         // Handle clicks in the primary nav ONLY (сохраняем skip-link поведение)
