@@ -489,45 +489,65 @@
   </script>
 
   <!-- Smooth anchor scrolling fallback for old browsers -->
-  <script>
-    (function(){
-      const DURATION = 600;
-      const supportsNative = 'scrollBehavior' in document.documentElement.style;
-      function smoothScrollTo(target) {
-        if (!target) return;
-        if (supportsNative) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
-        const start = window.pageYOffset;
-        const end = target.getBoundingClientRect().top + start - 12;
-        const startTime = performance.now();
-        function step(now) {
-          const t = Math.min(1, (now - startTime) / DURATION);
-          const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-          window.scrollTo(0, start + (end - start) * eased);
-          if (t < 1) requestAnimationFrame(step);
+    <script>
+      (function(){
+        const DURATION = 600;
+        const supportsNative = 'scrollBehavior' in document.documentElement.style;
+
+        function smoothScrollTo(target) {
+          if (!target) return;
+          if (supportsNative) { 
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            const start = window.pageYOffset;
+            const end = target.getBoundingClientRect().top + start - 12;
+            const startTime = performance.now();
+            function step(now) {
+              const t = Math.min(1, (now - startTime) / DURATION);
+              const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+              window.scrollTo(0, start + (end - start) * eased);
+              if (t < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          }
         }
-        requestAnimationFrame(step);
-      }
-      document.addEventListener('click', (e) => {
-        const a = e.target.closest('a[href^="#"]');
-        if (!a) return;
-        const id = decodeURIComponent(a.getAttribute('href').slice(1));
-        const target = document.getElementById(id);
-        if (!target) return;
-        e.preventDefault();
-        history.pushState(null, '', '#' + id);
-        smoothScrollTo(target);
-      });
-      function handleHash() {
-        const id = decodeURIComponent(location.hash.replace('#', ''));
-        if (!id) return;
-        const el = document.getElementById(id);
-        if (!el) return;
-        setTimeout(() => smoothScrollTo(el), 0);
-      }
-      window.addEventListener('load', handleHash);
-      window.addEventListener('hashchange', handleHash);
-    })();
-  </script>
+
+        // Handle clicks in the primary nav ONLY (сохраняем skip-link поведение)
+        document.addEventListener('click', (e) => {
+          const a = e.target.closest('nav.primary-nav a[href^="#"]');
+          if (!a) return;
+          const id = decodeURIComponent(a.getAttribute('href').slice(1));
+          const target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+
+          // smooth scroll
+          smoothScrollTo(target);
+
+          // do NOT leave hash in the URL
+          const clean = location.pathname + location.search;
+          history.replaceState(null, '', clean);
+        });
+
+        // If page opened with a hash, scroll there once, then clean URL
+        window.addEventListener('load', () => {
+          const id = decodeURIComponent(location.hash.replace('#', ''));
+          if (!id) return;
+          const el = document.getElementById(id);
+          if (!el) return;
+          // defer to ensure layout is ready
+          setTimeout(() => {
+            smoothScrollTo(el);
+            history.replaceState(null, '', location.pathname + location.search);
+          }, 0);
+        });
+
+        // Ignore hashchange (we keep URL clean anyway)
+        window.addEventListener('hashchange', (e) => {
+          e.preventDefault?.();
+        });
+      })();
+    </script>
 
   <!-- Theme toggle (sync with data-theme) -->
   <script>
