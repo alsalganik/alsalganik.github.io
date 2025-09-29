@@ -36,14 +36,6 @@
       }catch(e){}
     })();
   </script>
-  <script>
-    (function(){
-      // Replace "A. B." → "A.&nbsp;B."
-      document.querySelectorAll('.pub .muted, #publications .muted').forEach(el => {
-      el.innerHTML = el.innerHTML.replace(/([A-Z])\.\s([A-Z])\./g, '$1.&nbsp;$2.');
-      });
-    })();
-  </script>
 
   <style>
     /* Color tokens (light default) */
@@ -753,6 +745,39 @@
       })();
     </script>
 
-    
+        <script>
+      (function(){
+        // Walk text nodes under a root and apply a transform
+        function walkTextNodes(root, transform){
+          const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+          const nodes = [];
+          while (walker.nextNode()) nodes.push(walker.currentNode);
+          nodes.forEach(node => {
+            const orig = node.nodeValue;
+            const next = transform(orig);
+            if (next !== orig) node.nodeValue = next;
+          });
+        }
+
+        // Replace spaces between initials: "A. B." -> "A.\u00A0B."
+        // Unicode-aware: letters from any alphabet
+        const NBSP = '\u00A0';
+        function fixInitialsSpaces(text){
+          // 1) Between consecutive initials (handles 2 or 3+ initials)
+          // e.g. "D. A. H." => "D.&nbsp;A.&nbsp;H."
+          text = text.replace(/(?<=\b[\p{L}])\.\s(?=[\p{L}]\.)/gu, '.' + NBSP);
+
+          // 2) Also catch cases with narrow no-break space or multiple spaces already
+          text = text.replace(/(?<=\b[\p{L}])\.(?:\s|[\u00A0\u202F])+(?=[\p{L}]\.)/gu, '.' + NBSP);
+
+          return text;
+        }
+
+        // Apply to author lines in publications (the grey .muted spans with authors)
+        document.querySelectorAll('#publications .pub .muted, ol.pub .muted').forEach(el => {
+          walkTextNodes(el, fixInitialsSpaces);
+        });
+      })();
+    </script>
 </body>
 </html>
