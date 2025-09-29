@@ -218,6 +218,25 @@
     .list-row .item-meta {
       margin-left: 12px;
     }
+    .list-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* Left column flexible, can wrap */
+    .list-row .item-main {
+      flex: 1 1 auto;   /* grow and shrink */
+      min-width: 0;     /* allow wrapping instead of pushing */
+      overflow-wrap: anywhere; /* let long words break if needed */
+    }
+
+    /* Right column (dates) only as wide as content */
+    .list-row .item-meta {
+      flex: 0 0 auto;
+      white-space: nowrap; /* keep badges together */
+    }
   </style>
 
   <!-- Person structured data -->
