@@ -36,6 +36,14 @@
       }catch(e){}
     })();
   </script>
+  <script>
+    (function(){
+      // Replace "A. B." → "A.&nbsp;B."
+      document.querySelectorAll('.pub .muted, #publications .muted').forEach(el => {
+      el.innerHTML = el.innerHTML.replace(/([A-Z])\.\s([A-Z])\./g, '$1.&nbsp;$2.');
+      });
+    })();
+  </script>
 
   <style>
     /* Color tokens (light default) */
