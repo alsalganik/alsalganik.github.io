@@ -237,6 +237,39 @@
       flex: 0 0 auto;
       white-space: nowrap; /* keep badges together */
     }
+        .list-row{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:initial;   /* override space-between */
+    }
+    .list-row .item-main{
+      flex:1 1 0;                /* let the left column own the space */
+      min-width:0;               /* allow wrapping instead of overflow */
+      overflow:visible;
+      overflow-wrap:anywhere;     /* break very long tokens if needed */
+    }
+    .list-row .item-meta{
+      margin-left:auto;          /* push dates to the right without squeezing left */
+      flex:0 0 auto;
+      white-space:nowrap;        /* keep badges in one line on wide screens */
+    }
+
+    /* Make the date row a bit tighter so it “weighs” less visually */
+    .dates{ gap:6px; }
+
+    /* On narrow screens: let dates drop under the title instead of squeezing it */
+    @media (max-width: 640px){
+      .list-row{ flex-wrap:wrap; }
+      .list-row .item-meta{
+        margin-left:0;
+        width:100%;
+        display:flex;
+        justify-content:flex-end; /* dates move under and align to the right edge */
+        white-space:normal;       /* allow wrap if needed on tiny widths */
+        margin-top:4px;
+      }
+    }
   </style>
 
   <!-- Person structured data -->
