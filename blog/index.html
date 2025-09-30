@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alexander Salganik — Blog</title>
+  <meta name="description" content="Notes on X-ray pulsars, timing, spectroscopy, polarimetry (IXPE, NuSTAR, NICER)." />
+
+  <link rel="canonical" href="https://salganik.me/blog/" />
+  <meta property="og:title" content="Alexander Salganik — Blog" />
+  <meta property="og:description" content="Short research notes, checklists, plots, and code snippets." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://salganik.me/blog/" />
+  <meta property="og:image" content="https://salganik.me/assets/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/assets/favicon.ico" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script> (function(){ try{ const stored=localStorage.getItem('theme'); const prefersDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches; document.documentElement.dataset.theme = stored || (prefersDark? 'dark':'light'); }catch(e){} })(); </script>
+
+  <style>
+    :root{ --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb; --accent:#1565C0; }
+    [data-theme="dark"]{ --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{ margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.6 }
+    a{ color:var(--link) }
+
+    .container{ max-width:980px; margin:0 auto; padding:24px }
+
+    header{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 0 16px; border-bottom:1px solid var(--border) }
+    .title{ font-size:clamp(24px,5vw,36px); margin:0 }
+    .muted{ color:var(--muted) }
+
+    .controls{ display:flex; gap:10px; align-items:center; flex-wrap:wrap }
+    .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--border); background:var(--card); color:var(--text); border-radius:12px; text-decoration:none; font-weight:600; cursor:pointer }
+    .btn.primary{ background:#111827; color:#fff; border-color:#111827 }
+    [data-theme="dark"] .btn.primary{ background:#2563eb; border-color:#2563eb }
+
+    .posts{ display:grid; grid-template-columns:1fr; gap:16px; padding:20px 0 }
+    @media(min-width:768px){ .posts{ grid-template-columns:1fr 1fr } }
+
+    .post{ background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; display:flex; flex-direction:column }
+    .post img{ width:100%; height:180px; object-fit:cover; border-bottom:1px solid var(--border) }
+    .post-content{ padding:16px; display:flex; flex-direction:column; gap:10px; flex:1 }
+    .post h2{ margin:0; font-size:18px }
+    .post h2 a{ color:var(--text); text-decoration:none }
+    .post h2 a:hover{ color:var(--link) }
+    .meta{ display:flex; gap:8px; align-items:center; color:var(--muted); font-size:13px }
+    .tags{ display:flex; flex-wrap:wrap; gap:6px }
+    .tag{ padding:4px 8px; border-radius:999px; background:var(--chip); border:1px solid var(--border); font-size:12px }
+
+    footer{ border-top:1px solid var(--border); margin-top:16px; padding:20px 0; color:var(--muted); font-size:13px }
+
+    .filters{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:10px }
+    .filters input[type="search"]{ padding:10px 12px; border-radius:10px; border:1px solid var(--border); background:var(--bg); color:var(--text); min-width:220px }
+    .chip-btn{ padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:var(--chip); cursor:pointer; font-size:13px }
+    .chip-btn[aria-pressed="true"]{ outline:2px solid var(--accent) }
+
+    @media print{ .btn, .filters, #theme-toggle{ display:none!important } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1 class="title">Blog</h1>
+        <div class="muted">Short research notes for people who like this kind of stuff (timing, spectroscopy, polarimetry).</div>
+        <div class="filters" role="group" aria-label="Filter posts">
+          <input id="search" type="search" placeholder="Search posts…" aria-label="Search posts" />
+          <button class="chip-btn" data-tag="IXPE" aria-pressed="false">IXPE</button>
+          <button class="chip-btn" data-tag="NuSTAR" aria-pressed="false">NuSTAR</button>
+          <button class="chip-btn" data-tag="timing" aria-pressed="false">timing</button>
+          <button class="chip-btn" data-tag="polarimetry" aria-pressed="false">polarimetry</button>
+        </div>
+      </div>
+      <div class="controls">
+        <a class="btn" href="/">← Back to CV</a>
+        <a class="btn" href="/blog/feed.xml" aria-label="RSS feed">RSS</a>
+        <button id="theme-toggle" class="btn" aria-label="Toggle color theme">🌙 Dark Mode</button>
+      </div>
+    </header>
+
+    <main id="content" role="main">
+      <section class="posts" id="post-list">
+        <article class="post" itemscope itemtype="https://schema.org/BlogPosting" data-tags="Be/X-ray timing NuSTAR">
+          <img src="/assets/blog/bimodal-2rxp.jpg" alt="Bimodal 2RXP light curve preview">
+          <div class="post-content">
+            <h2><a href="/blog/bimodal-2rxp-notes" itemprop="url"><span itemprop="headline">Bimodal luminosity in 2RXP J130159.6−635806 — quick look & plots</span></a></h2>
+            <div class="meta"><time datetime="2025-03-15" itemprop="datePublished">Mar 15, 2025</time> • <span itemprop="author">Alexander Salganik</span></div>
+            <p class="muted" itemprop="description">Why the histogram splits into two peaks, what thresholds I use, and a tiny snippet for reproducing the figure.</p>
+            <div class="tags"><span class="tag">Be/X-ray</span><span class="tag">timing</span><span class="tag">NuSTAR</span></div>
+          </div>
+        </article>
+
+        <article class="post" itemscope itemtype="https://schema.org/BlogPosting" data-tags="accretion CRSF INTEGRAL">
+          <img src="/assets/blog/rxj0440.jpg" alt="RX J0440.9+4431 supercritical illustration">
+          <div class="post-content">
+            <h2><a href="/blog/rxj0440-supercritical" itemprop="url"><span itemprop="headline">RX J0440.9+4431: notes on the supercritical regime</span></a></h2>
+            <div class="meta"><time datetime="2023-06-20" itemprop="datePublished">Jun 20, 2023</time> • <span itemprop="author">Alexander Salganik</span></div>
+            <p class="muted" itemprop="description">A compact explanation of what “supercritical” means observationally and which diagnostics actually move the needle.</p>
+            <div class="tags"><span class="tag">accretion</span><span class="tag">CRSF</span><span class="tag">INTEGRAL</span></div>
+          </div>
+        </article>
+
+        <article class="post" itemscope itemtype="https://schema.org/BlogPosting" data-tags="IXPE polarimetry how-to">
+          <img src="/assets/blog/ixpe-gx1p4.jpg" alt="IXPE observation checklist preview">
+          <div class="post-content">
+            <h2><a href="/blog/ixpe-gx1p4-checklist" itemprop="url"><span itemprop="headline">IXPE: GX 1+4 observation checklist</span></a></h2>
+            <div class="meta"><time datetime="2024-10-02" itemprop="datePublished">Oct 2, 2024</time> • <span itemprop="author">Alexander Salganik</span></div>
+            <p class="muted" itemprop="description">From proposal to quick-look: target angle, background, systematics, and a couple of traps to avoid.</p>
+            <div class="tags"><span class="tag">IXPE</span><span class="tag">polarimetry</span><span class="tag">how-to</span></div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Alexander Salganik. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    (function(){ const btn = document.getElementById('theme-toggle'); function setTheme(t){ document.documentElement.dataset.theme=t; localStorage.setItem('theme',t); btn.textContent = t==='dark' ? '☀️ Light Mode' : '🌙 Dark Mode'; } setTheme(document.documentElement.dataset.theme||'light'); btn.addEventListener('click',()=> setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark')); })();
+  </script>
+
+  <script>
+    (function(){ const list = document.getElementById('post-list'); const posts = Array.from(list.querySelectorAll('.post')); const search = document.getElementById('search'); const chips = Array.from(document.querySelectorAll('.chip-btn')); function activeTags(){ return chips.filter(c=>c.getAttribute('aria-pressed')==='true').map(c=>c.dataset.tag.toLowerCase()); } function apply(){ const q = (search.value||'').toLowerCase(); const tags = activeTags(); posts.forEach(p=>{ const hay = [p.textContent, p.getAttribute('data-tags')||''].join(' ').toLowerCase(); const tagStr = (p.getAttribute('data-tags')||'').toLowerCase(); const okText = !q || hay.includes(q); const okTags = !tags.length || tags.every(t=> tagStr.includes(t)); p.style.display = (okText && okTags) ? '' : 'none'; }); } search.addEventListener('input', apply); chips.forEach(c=> c.addEventListener('click', ()=>{ c.setAttribute('aria-pressed', c.getAttribute('aria-pressed')==='true'?'false':'true'); apply(); })); apply(); })();
+  </script>
+</body>
+</html>
