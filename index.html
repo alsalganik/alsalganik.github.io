@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Alexander Salganik — Astrophysics CV</title>
+  <meta name="description" content="Online CV of Alexander Salganik, PhD researcher in Astrophysics at the University of Turku. Publications (MNRAS, A&A), projects, grants, proposals, outreach, and contact details." />
+
+  <!-- Social / SEO -->
+  <link rel="canonical" href="https://salganik.me/">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#1565C0">
+  <meta property="og:title" content="Alexander Salganik — CV" />
+  <meta property="og:description" content="Astrophysicist (X-ray pulsars). Publications, grants, proposals, outreach, contacts." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://salganik.me/" />
+  <meta property="og:image" content="https://salganik.me//assets/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/assets/favicon.ico" />
+
+  <!-- Fonts: preconnect + swap -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Set theme ASAP to avoid flash -->
+  <script>
+    (function(){
+      try{
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored || (prefersDark ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+      }catch(e){}
+    })();
+  </script>
+
+  <style>
+    /* Color tokens (light default) */
+    :root{
+      --bg:#ffffff; --text:#0b1320; --muted:#5e6a7e; --card:#f6f8fb; --border:#e5e8ef; --link:#0a66c2; --chip:#eef3fb;
+      --accent:#1565C0; --link-strong:#C62828;
+    }
+    /* Dark overrides via data-theme */
+    [data-theme="dark"]{
+      --bg:#0b0f14; --text:#e6edf3; --muted:#97a3b6; --card:#10161f; --border:#1e2633; --link:#7ab7ff; --chip:#172235; --accent:#7ab7ff; --link-strong:#ff8b8b;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.6
+    }
+    .container{max-width:960px; margin:0 auto; padding:24px}
+
+    /* Skip link */
+    .skip-link{ position:absolute; left:-9999px; top:auto }
+    .skip-link:focus{ left:12px; top:12px; z-index:1000; background:var(--card); padding:8px 12px; border-radius:8px; outline:2px solid var(--accent) }
+
+    header{display:flex; gap:20px; align-items:flex-start; padding:24px 0; border-bottom:1px solid var(--border)}
+    header img{
+      width:188px; height:188px; border-radius:50%; object-fit:cover; border:1px solid var(--border)
+    }
+    h1{font-size:clamp(28px,5vw,40px); line-height:1.15; margin:0}
+    .subtitle{color:var(--muted); margin-top:6px}
+
+    .actions{margin-top:14px; display:flex; flex-wrap:wrap; gap:10px}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
+      border:1px solid var(--border); background:var(--card); color:var(--text);
+      border-radius:12px; text-decoration:none; font-weight:600; cursor:pointer
+    }
+    .btn.primary{ background:#111827; color:#fff; border-color:#111827 }
+    [data-theme="dark"] .btn.primary{ background:#2563eb; border-color:#2563eb; }
+    .btn:hover{filter:brightness(0.98)}
+    .btn.toggle-theme{margin-left:6px}
+
+    /* Primary nav (separate from header for sticky) */
+    nav.primary-nav{
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap:12px; padding:14px 0; border-bottom:1px solid var(--border);
+      background:var(--bg);
+    }
+    nav.primary-nav a{
+      text-align:center; color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px;
+    }
+    nav.primary-nav a:hover{ background:var(--card); color:var(--text) }
+
+    /* Sticky nav on desktop */
+    @media (min-width: 768px){
+      nav.primary-nav{
+        position: sticky; top: 0; z-index: 10; padding-top: 8px; padding-bottom: 8px;
+      }
+    }
+
+    /* Highlight active link from scrollspy */
+    nav.primary-nav a[aria-current="true"]{
+      color: var(--text); background: var(--card); font-weight:600; border-radius:10px;
+    }
+
+    /* Sections & grids */
+    section{padding:28px 0; border-bottom:1px solid var(--border); scroll-margin-top: 64px;}
+    section:last-of-type{border-bottom:none}
+    .section-title{font-size:22px; margin:0 0 12px 0; color:var(--accent)}
+    .muted{color:var(--muted)}
+
+    .grid{display:grid; grid-template-columns:1fr; gap:14px}
+    @media(min-width:768px){ .grid.two{grid-template-columns:1fr 1fr} }
+
+    .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px}
+    .row{display:flex; justify-content:space-between; gap:16px}
+    .right{white-space:nowrap; color:var(--muted)}
+
+    ul{margin:0; padding-left:18px}
+    li{margin:6px 0}
+    .pub li{margin:12px 0}
+    .pub b i{color:var(--accent)}
+
+    footer{padding:28px 0; color:var(--muted)}
+    .small{font-size:13px}
+
+    .chip{display:inline-block; padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border); font-size:13px; margin-right:6px}
+    .orcid{display:inline-flex; align-items:center; gap:6px}
+    .orcid svg{width:14px; height:14px}
+    .btn.toggle{margin-top:10px; font-weight:600}
+    .collapsible-list li[hidden]{display:none}
+
+    /* Focus styles */
+    :focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* Images never overflow container */
+    img{ max-width: 100%; height: auto; }
+
+    /* Mobile tweaks */
+    @media (max-width: 768px){
+      .container{ padding: 16px; }
+
+      header{ flex-direction: column; align-items: flex-start; gap: 14px; }
+      header img{
+        width: clamp(72px, 22vw, 128px);
+        height: clamp(72px, 22vw, 128px);
+        flex-shrink: 0;
+      }
+      h1{ font-size: clamp(24px, 8vw, 36px); }
+      .subtitle{ font-size: 14px; }
+
+      nav.primary-nav{
+        overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        gap: 6px; padding-bottom: 6px; position: static; /* no sticky on small screens */
+      }
+      nav.primary-nav::-webkit-scrollbar{ display: none; }
+      nav.primary-nav a{ padding: 8px 10px; font-size: 14px; white-space: nowrap; }
+
+      .row{ flex-direction: column; gap: 6px; }
+      .right{ white-space: normal; }
+
+      .grid.two{ grid-template-columns: 1fr; }
+      ul{ padding-left: 16px; }
+      li{ margin: 4px 0; }
+      .pub li{ margin: 10px 0; }
+    }
+
+    /* Tiny phones */
+    @media (max-width: 380px){
+      .btn{ padding: 10px 14px; font-size: 13px; }
+      .section-title{ font-size: 18px; }
+    }
+
+    /* Print-friendly */
+    @media print{
+      .actions, nav.primary-nav, #theme-toggle, .btn.toggle{ display:none !important; }
+      body{ background:#fff; color:#000; }
+      .card{ border: none; background:transparent; padding:0; }
+      a[href^="http"]::after{ content:" (" attr(href) ")"; font-size:12px; }
+    }
+    
+    .dates{ display:inline-flex; align-items:center; gap:8px; flex-wrap:wrap }
+    .date-badge{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:4px 10px; border-radius:999px; background:var(--chip);
+      border:1px solid var(--border); font-size:13px; line-height:1; color:var(--text);
+    }
+    .date-dash{ width:16px; text-align:center; color:var(--muted); }
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+    
+    /* Align date boxes to the right in cards/rows */
+    .row{ align-items:center }                  /* already have .row; just ensure centering */
+    .right, .item-meta{ margin-left:auto }      /* keep pushing meta to the edge */
+    .right .dates, .item-meta .dates{ justify-content:flex-end }
+    
+    /* Lists: title/description on left, dates on right for cleaner layout */
+    .list-row{ display:flex; gap:12px; align-items:flex-start }
+    .list-row .item-main{ flex:1 1 auto; min-width:0 }
+    .list-row .item-meta{ flex:0 0 auto; white-space:nowrap }
+    
+    /* Make all muted date text consistent (we now rely on badges for color) */
+    .muted time{ color:inherit }
+    .item-main, .pub li b, .pub li span, .list-row .item-main {
+      overflow-wrap: break-word;   /* modern */
+      word-wrap: break-word;       /* legacy */
+      hyphens: auto;               /* allow hyphenation if locale supports */
+    }
+
+    /* Optional: make <b> titles block-level so they wrap nicely */
+    .pub li b {
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    /* Add some spacing between title and meta (dates) in pub/talks */
+    .list-row {
+      align-items: flex-start;
+    }
+    .list-row .item-meta {
+      margin-left: 12px;
+    }
+    .list-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* Left column flexible, can wrap */
+    .list-row .item-main {
+      flex: 1 1 auto;   /* grow and shrink */
+      min-width: 0;     /* allow wrapping instead of pushing */
+      overflow-wrap: anywhere; /* let long words break if needed */
+    }
+
+    /* Right column (dates) only as wide as content */
+    .list-row .item-meta {
+      flex: 0 0 auto;
+      white-space: nowrap; /* keep badges together */
+    }
+        .list-row{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:initial;   /* override space-between */
+    }
+    .list-row .item-main{
+      flex:1 1 0;                /* let the left column own the space */
+      min-width:0;               /* allow wrapping instead of overflow */
+      overflow:visible;
+      overflow-wrap:anywhere;     /* break very long tokens if needed */
+    }
+    .list-row .item-meta{
+      margin-left:auto;          /* push dates to the right without squeezing left */
+      flex:0 0 auto;
+      white-space:nowrap;        /* keep badges in one line on wide screens */
+    }
+
+    /* Make the date row a bit tighter so it “weighs” less visually */
+    .dates{ gap:6px; }
+
+    /* On narrow screens: let dates drop under the title instead of squeezing it */
+    @media (max-width: 640px){
+      .list-row{ flex-wrap:wrap; }
+      .list-row .item-meta{
+        margin-left:0;
+        width:100%;
+        display:flex;
+        justify-content:flex-end; /* dates move under and align to the right edge */
+        white-space:normal;       /* allow wrap if needed on tiny widths */
+        margin-top:4px;
+      }
+    }
+        /* Ensure list items also account for sticky nav */
+    li {
+      scroll-margin-top: 80px; /* чуть больше чем высота меню */
+    }
+    .list-row {
+      scroll-margin-top: 80px;
+    }
+    :root {
+      --nav-h: 64px; /* height of sticky navigation bar */
+    }
+    @media (max-width: 767px){
+      :root { --nav-h: 0px; } /* on mobile, nav is not sticky */
+    }
+
+    /* give all sections and list items a top margin when scrolled into view */
+    section,
+    li,
+    .list-row {
+      scroll-margin-top: calc(var(--nav-h) + 16px);
+    }
+    section > div,
+    section > ul,
+    section > ol,
+    section > p,
+    .chip {
+      margin-top: 12px;   /* space above */
+      margin-bottom: 12px;/* space below */
+    }
+    .chip {
+      display: inline-block;
+      padding: 6px 12px;
+      margin: 6px;              /* space around each chip */
+      border-radius: 999px;
+      background: var(--chip);
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+  </style>
+
+  <!-- Person structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Alexander Salganik",
+    "jobTitle": "PhD researcher in Astrophysics",
+    "affiliation": {"@type": "Organization", "name": "University of Turku"},
+    "email": "mailto:alsalganik@gmail.com",
+    "sameAs": ["https://orcid.org/0000-0003-2609-8838"],
+    "url": "https://salganik.me"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#summary">Skip to content</a>
+
+  <div class="container">
+    <header>
+      <img src="assets/photo.jpg" alt="Alexander Salganik portrait" />
+
+      <div>
+        <h1>Alexander Salganik</h1>
+        <div class="subtitle">PhD researcher in Astrophysics — University of Turku, Finland</div>
+        <address class="actions" style="font-style:normal">
+          <a class="btn primary" href="cv/Alexander_Salganik_CV.pdf" type="application/pdf" download="Alexander_Salganik_CV.pdf">Download CV (PDF)</a>
+          <a class="btn" href="mailto:alsalganik@gmail.com" aria-label="Email Alexander (Gmail)">alsalganik@gmail.com</a>
+          <a class="btn" href="mailto:alexander.a.salganik@utu.fi" aria-label="Email Alexander (UTU)">alexander.a.salganik@utu.fi</a>
+          <a class="btn orcid" href="https://orcid.org/0000-0003-2609-8838" rel="me noopener" target="_blank" aria-label="ORCID (opens in new tab)">
+            <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="128" cy="128" r="120" fill="#A6CE39"/><path d="M94 70h20v116H94zM141 92a28 28 0 1 1 0 56 28 28 0 0 1 0-56m0-20a48 48 0 1 0 0 96 48 48 0 0 0 0-96z" fill="#fff"/></svg>
+            ORCID
+          </a>
+          <button id="theme-toggle" class="btn toggle-theme" aria-label="Toggle color theme">🌙 Dark Mode</button>
+        </address>
+      </div>
+    </header>
+
+    <!-- Sticky nav sits outside header -->
+    <nav class="primary-nav">
+      <a href="#summary">Summary</a>
+      <a href="#education">Education</a>
+      <a href="#experience">Experience</a>
+      <a href="#service">Service</a>
+      <a href="#publications">Publications</a>
+      <a href="#grants">Grants</a>
+      <a href="#awards">Awards</a>
+      <a href="#proposals">Proposals</a>
+      <a href="#outreach">Outreach</a>
+      <a href="#talks">Talks</a>
+    </nav>
+
+    <main id="content" role="main">
+      <section id="summary" aria-labelledby="summary-title">
+        <h2 id="summary-title" class="section-title">Summary</h2>
+        <p class="muted small">Last CV update: <time datetime="2025-09-29">Sep 29, 2025</time></p>
+        <p>
+          I am a highly motivated PhD researcher at the University of Turku with five first-author publications in <i>MNRAS</i> and <i>A&amp;A</i>. My research focuses on X-ray Astrophysics, particularly on X-ray pulsars. I have extensive experience in spectral and timing analyses using data from leading space missions and observatories. My primary goal is to expand my research to include X-ray polarimetric observations of pulsars, aspiring to become a world-leading researcher or professor in the field of high-energy astrophysics.
+        </p>
+        <div>
+          <span class="chip">X-ray pulsars</span>
+          <span class="chip">Timing</span>
+          <span class="chip">Spectroscopy</span>
+          <span class="chip">X-ray Polarimetry</span>
+          <span class="chip">High-energy astrophysics</span>
+        </div>
+      </section>
+
+      <section id="education" aria-labelledby="education-title">
+        <h2 id="education-title" class="section-title">Education</h2>
+        <div class="card">
+          <div class="row"><b>St. Petersburg State University</b><span class="right"><time datetime="2018">2018</time>–<time datetime="2024">2024</time></span></div>
+          <div class="muted">Integrated Bachelor's and Master's Degree in Astrophysics (with Distinction)</div>
+        </div>
+        <div class="card">
+          <div class="row"><b>University of Turku</b><span class="right"><time datetime="2024">2024</time>–present</span></div>
+          <div class="muted">PhD in Astrophysics (Self-funded research supported by EDUFI and Wihuri grants)</div>
+        </div>
+      </section>
+
+      <section id="experience" aria-labelledby="experience-title">
+        <h2 id="experience-title" class="section-title">Work Experience</h2>
+        <div class="card">
+          <div class="row"><b>Space Research Institute (IKI RAS)</b><span class="right"><time datetime="2019">2019</time>–<time datetime="2023">2023</time></span></div>
+          <div class="muted">Senior Laboratory Assistant (part-time)</div>
+        </div>
+        <div class="card">
+          <div class="row"><b>University of Turku</b><span class="right"><time datetime="2025">2025</time></span></div>
+          <div class="muted">Teaching Assistant/Demonstrator — Observational X-ray and Gamma-ray Astrophysics Course</div>
+        </div>
+      </section>
+
+      <section id="service" aria-labelledby="service-title">
+        <h2 id="service-title" class="section-title">Professional Service</h2>
+        <ul>
+          <li>Peer-review for <i>The Astrophysical Journal</i>  <span class="muted"><time datetime="2024">2024</time>–present</span></li>
+          <li>Peer-review for <i>Advances in Space Research</i>  <span class="muted"><time datetime="2024">2024</time>–present</span></li>
+          <li>Member of the Finnish Astronomical Society (FAS)  <span class="muted"><time datetime="2025">2025</time>–present</span></li>
+          <li>NewAthena Science Community Member  <span class="muted"><time datetime="2025">2025</time>–present</span></li>
+        </ul>
+      </section>
+
+      <section id="publications" aria-labelledby="publications-title">
+        <h2 id="publications-title" class="section-title">Publications — First Author</h2>
+        <ol class="pub">
+          <li>
+            <b><i>On the nature of the X-ray pulsar XTE J1859+083 and its broadband properties</i></b><br/>
+            <span class="muted">Salganik A., Tsygankov S. S., Djupvik A. A., Karasev D. I., Lutovinov A. A., Buckley D. A. H., Gromadzki M., Poutanen J.</span><br/>
+            <span><i>MNRAS</i> 509, 5955. <a href="https://doi.org/10.1093/mnras/stab3362" target="_blank" rel="noopener">DOI</a></span>
+            <span class="right">2022</span>
+          </li>
+          <li>
+            <b><i>Discovery of a pulse-phase-transient cyclotron line in the X-ray pulsar Swift J1808.4−1754 and identification of an optical companion</i></b><br/>
+            <span class="muted">Salganik A., Tsygankov S. S., Lutovinov A. A., Djupvik A. A., Karasev D. I., Molkov S. V.</span><br/>
+            <span><i>MNRAS</i> 514, 2707. <a href="https://doi.org/10.1093/mnras/stac1462" target="_blank" rel="noopener">DOI</a></span>
+            <span class="right">2022</span>
+          </li>
+          <li>
+            <b><i>First characterization of a new high-mass X-ray binary in LMC eRASSU J050810.4−660653 with SRG/ART-XC, NuSTAR, and Swift</i></b><br/>
+            <span class="muted">Salganik A., Tsygankov S. S., Lutovinov A. A., Mushtukov A. A., Mereminskiy I. A., Molkov S. V., Semena A. N.</span><br/>
+            <span><i>MNRAS</i> 514, 4018. <a href="https://doi.org/10.1093/mnras/stac1608" target="_blank" rel="noopener">DOI</a></span>
+            <span class="right">2022</span>
+          </li>
+          <li>
+            <b><i>RX J0440.9+4431: another supercritical X-ray pulsar</i></b><br/>
+            <span class="muted">Salganik A., Tsygankov S. S., Doroshenko V., Molkov S. V., Lutovinov A. A., Mushtukov A. A., Poutanen J.</span><br/>
+            <span><i>MNRAS</i> 524, 5213. <a href="https://doi.org/10.1093/mnras/stad2124" target="_blank" rel="noopener">DOI</a></span>
+            <span class="right">2023</span>
+          </li>
+          <li>
+            <b><i>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806</i></b><br/>
+            <span class="muted">Salganik A., Tsygankov S. S., Chernyakova M., Malyshev D., Poutanen J.</span><br/>
+            <span><i>A&amp;A</i> 698, A71. <a href="https://doi.org/10.1051/0004-6361/202453378" target="_blank" rel="noopener">DOI</a></span>
+            <span class="right">2025</span>
+          </li>
+        </ol>
+      </section>
+
+      <section id="grants" aria-labelledby="grants-title">
+        <h2 id="grants-title" class="section-title">Grants</h2>
+        <ul>
+          <li><b>EDUFI Fellowship</b>: Highly competitive fellowship supporting doctoral research (€17,100)  <span class="muted"><time datetime="2024-10">Oct 2024</time></span></li>
+<li>
+  <b>Wihuri Foundation Grant</b>: Highly competitive grant supporting doctoral research (€30,000 total) 
+  (<a href="https://wihurinrahasto.fi/en/grants/?&s=salganik">foundation</a>, 
+   <a href="https://www.utu.fi/fi/ajankohtaista/uutinen/jenny-ja-antti-wihurin-rahastolta-yli-miljoona-euroa-turun-yliopiston">press release</a>)
+  <span class="muted"><time datetime="2024-10">Oct 2024</time></span>
+</li>
+          <li><b>Frontiers in X-ray Polarimetry (FiXP) Academy travel grant</b> (€1200)  <span class="muted"><time datetime="2025-03">Mar 2025</time></span></li>
+        </ul>
+      </section>
+
+      <section id="awards" aria-labelledby="awards-title">
+        <h2 id="awards-title" class="section-title">Awards and Honors</h2>
+        <ul>
+          <li>Personal Scholarship of the Government of St. Petersburg in the field of Physics  <span class="muted"><time datetime="2018">2018</time>–<time datetime="2020">2020</time></span></li>
+          <li>IKI RAS Best Scientific Work Prize (for researchers under 35)  <span class="muted"><time datetime="2023">2023</time></span></li>
+          <li>Enhanced Academic Scholarship of St. Petersburg State University for academic and research excellence  <span class="muted"><time datetime="2020">2020</time>–<time datetime="2024">2024</time></span></li>
+        </ul>
+      </section>
+
+      <section id="proposals" aria-labelledby="proposals-title">
+        <h2 id="proposals-title" class="section-title">Accepted Proposals</h2>
+        <div class="grid two">
+          <div class="card">
+            <b>General Observer</b>
+            <ul id="go-list" class="collapsible-list" data-visible="3">
+              <li><b>PI:</b> Insight-HXMT proposal for observations of cyclotron line harmonics  <span class="muted"><time datetime="2024">2024</time></span></li>
+              <li><b>PI:</b> IXPE proposal for GX 1+4 observations  <span class="muted"><time datetime="2024">2024</time></span></li>
+              <li><b>Co-I:</b> IXPE proposal for 4U 1907+09 observations  <span class="muted"><time datetime="2023">2023</time></span></li>
+            </ul>
+            <button class="btn toggle" aria-expanded="false" aria-controls="go-list">Show more</button>
+          </div>
+          <div class="card">
+            <b>Director's Discretionary</b>
+            <ul id="ddt-list" class="collapsible-list" data-visible="5">
+              <li>PI: NuSTAR 140 ks TOO observations of SXP 31.0  <span class="muted"><time datetime="2025-05">May 2025</time></span></li>
+              <li>PI: NuSTAR 59 ks TOO observations of LS V +44 17  <span class="muted"><time datetime="2023-01">Jan 2023</time>–<time datetime="2023-04">Apr 2023</time></span></li>
+              <li>PI: NuSTAR 56 ks TOO observations of eRASSU J050810.4−660653  <span class="muted"><time datetime="2021-12">Dec 2021</time></span></li>
+            </ul>
+            <button class="btn toggle" aria-expanded="false" aria-controls="ddt-list">Show more</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="outreach" aria-labelledby="outreach-title">
+        <h2 id="outreach-title" class="section-title">Press &amp; Public Outreach</h2>
+<ul>
+  <li>
+    INTEGRAL Picture of the Month: Observations of RX J0440.9+4431 in the supercritical accretion regime 
+    (<a href="https://www.cosmos.esa.int/web/integral/pom-generation?p_p_id=com_liferay_iframe_web_portlet_IFramePortlet_INSTANCE_cPRGXJw9FQjM&_com_liferay_iframe_web_portlet_IFramePortlet_INSTANCE_cPRGXJw9FQjM_iframe_yr=2023&_com_liferay_iframe_web_portlet_IFramePortlet_INSTANCE_cPRGXJw9FQjM_iframe_mon=06&_com_liferay_iframe_web_portlet_IFramePortlet_INSTANCE_cPRGXJw9FQjM_iframe_extn=jpg">link</a>)  
+    <span class="muted"><time datetime="2023-06">Jun 2023</time></span>
+  </li>
+
+  <li>
+    IKI RAS Press Release: RX J0440.9+4431 switched to the super-critical accretion regime 
+    (<a href="https://iki.cosmos.ru/en/news/transient-x-ray-pulsar-rx-j0440-94431-switched-super-critical-regime-accretion-first-time">link</a>)  
+    <span class="muted"><time datetime="2023-06">Jun 2023</time></span>
+  </li>
+
+  <li>
+    Main RAS Press Release: RX J0440.9+4431 transitions into super-critical accretion 
+    (<a href="https://new.ras.ru/activities/news/rentgenovskiy-pulsar-rx-j0440-9-4431-vpervye-pereshel-v-sverkhkriticheskiy-rezhim-akkretsii/">link</a>)  
+    <span class="muted"><time datetime="2023-06">Jun 2023</time></span>
+  </li>
+</ul>
+
+      </section>
+
+      <section id="talks" aria-labelledby="talks-title">
+        <h2 id="talks-title" class="section-title">Talks</h2>
+        <ul>
+          <li><b>On the nature of the X-ray pulsar XTE J1859+083 and its broadband properties:</b>
+            <ul>
+              <li>Conference Fundamental and Applied Space Research 2021, IKI RAS  <span class="muted"><time datetime="2021-04">Apr 2021</time></span></li>
+              <li>Invited Talk at St. Petersburg State University  <span class="muted"><time datetime="2021-12">Dec 2021</time></span></li>
+              <li>Conference Astronomy and Space Exploration, Ural Federal University  <span class="muted"><time datetime="2022-01">Jan 2022</time></span></li>
+            </ul>
+          </li>
+          <li><b>Study of the X-ray pulsars Swift J1808.4−1754 and eRASSU J050810.4−660653 based<br/>on space observatories' data:</b>
+            <ul>
+              <li>Conference Fundamental and Applied Space Research 2023, IKI RAS  <span class="muted"><time datetime="2023-04">Apr 2023</time></span></li>
+            </ul>
+          </li>
+
+          <li><b>Study of the transition of the pulsar RX J0440.9+4431 to the super-critical accretion regime:</b>
+            <ul>
+              <li>Conference Physics of Neutron Stars 2023, Ioffe Institute  <span class="muted"><time datetime="2023-07">Jul 2023</time></span></li>
+              <li>Invited Talk, Princeton University  <span class="muted"><time datetime="2023-09">Sep 2023</time></span></li>
+              <li>Invited Talk, Ioffe Institute  <span class="muted"><time datetime="2023-09">Sep 2023</time></span></li>
+              <li>Conference High-energy Astrophysics Today and Tomorrow HEA-2023, IKI RAS  <span class="muted"><time datetime="2023-12">Dec 2023</time></span></li>
+            </ul>
+          </li>
+          <li><b>Discovery of a bimodal luminosity distribution in persistent Be/X-ray pulsar 2RXP J130159.6-635806:</b>
+            <ul>
+              <li>Invited Talk, THEAPA Group Meeting, University of Maryland  <span class="muted"><time datetime="2025-03">Mar 2025</time></span></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <div class="small">© <span id="year"></span> Alexander Salganik. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <!-- Year only -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Collapsible lists with ARIA sync -->
+  <script>
+    (function(){
+      const lists = document.querySelectorAll('.collapsible-list');
+      lists.forEach(ul => {
+        const visible = parseInt(ul.dataset.visible || '3', 10);
+        const items = Array.from(ul.children).filter(li => li.tagName === 'LI');
+        const button = document.querySelector('button[aria-controls="'+ul.id+'"]') ||
+                       ul.parentElement.querySelector('.btn.toggle');
+        if (!button) return;
+        if (!ul.id){
+          ul.id = 'list-' + Math.random().toString(36).slice(2);
+          button.setAttribute('aria-controls', ul.id);
+        }
+        function apply(collapsed){
+          items.forEach((li, i) => li.hidden = collapsed && i >= visible);
+          button.textContent = collapsed ? 'Show more' : 'Show less';
+          button.setAttribute('aria-expanded', String(!collapsed));
+        }
+        let collapsed = true;
+        apply(collapsed);
+        button.addEventListener('click', () => { collapsed = !collapsed; apply(collapsed); });
+      });
+    })();
+  </script>
+
+  <!-- Smooth anchor scrolling fallback for old browsers -->
+    <script>
+    (function(){
+      const DURATION = 600;
+      const supportsNative = 'scrollBehavior' in document.documentElement.style;
+
+      function smoothScrollTo(target) {
+        if (!target) return;
+        const nav = document.querySelector('nav.primary-nav');
+        const navH = nav ? nav.offsetHeight : 0;
+        const start = window.pageYOffset;
+        const end = target.getBoundingClientRect().top + start - navH;
+
+        if (supportsNative) {
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+          setTimeout(()=>window.scrollBy(0,-navH),10); // корректируем
+        } else {
+          const startTime = performance.now();
+          function step(now){
+            const t = Math.min(1,(now-startTime)/DURATION);
+            const eased = t<0.5?2*t*t:-1+(4-2*t)*t;
+            window.scrollTo(0,start+(end-start)*eased);
+            if(t<1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+      }
+
+      document.addEventListener('click', e=>{
+        const a = e.target.closest('nav.primary-nav a[href^="#"]');
+        if(!a) return;
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        smoothScrollTo(target);
+        history.replaceState(null,'',location.pathname+location.search);
+      });
+
+      window.addEventListener('load', ()=>{
+        const id = location.hash.replace('#','');
+        if(!id) return;
+        const el = document.getElementById(id);
+        if(!el) return;
+        setTimeout(()=>smoothScrollTo(el),0);
+        history.replaceState(null,'',location.pathname+location.search);
+      });
+    })();
+        }
+
+        // Handle clicks in the primary nav ONLY (сохраняем skip-link поведение)
+        document.addEventListener('click', (e) => {
+          const a = e.target.closest('nav.primary-nav a[href^="#"]');
+          if (!a) return;
+          const id = decodeURIComponent(a.getAttribute('href').slice(1));
+          const target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+
+          // smooth scroll
+          smoothScrollTo(target);
+
+          // do NOT leave hash in the URL
+          const clean = location.pathname + location.search;
+          history.replaceState(null, '', clean);
+        });
+
+        // If page opened with a hash, scroll there once, then clean URL
+        window.addEventListener('load', () => {
+          const id = decodeURIComponent(location.hash.replace('#', ''));
+          if (!id) return;
+          const el = document.getElementById(id);
+          if (!el) return;
+          // defer to ensure layout is ready
+          setTimeout(() => {
+            smoothScrollTo(el);
+            history.replaceState(null, '', location.pathname + location.search);
+          }, 0);
+        });
+
+        // Ignore hashchange (we keep URL clean anyway)
+        window.addEventListener('hashchange', (e) => {
+          e.preventDefault?.();
+        });
+      })();
+    </script>
+
+  <!-- Theme toggle (sync with data-theme) -->
+  <script>
+    (function(){
+      const btn = document.getElementById('theme-toggle');
+      function setTheme(t){
+        document.documentElement.dataset.theme = t;
+        localStorage.setItem('theme', t);
+        btn.textContent = t==='dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+      }
+      const cur = document.documentElement.dataset.theme || 'light';
+      setTheme(cur);
+      btn.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
+    })();
+  </script>
+
+  <!-- Scrollspy: set aria-current="true" on the active nav link -->
+  <script>
+    (function(){
+      const links = Array.from(document.querySelectorAll('nav.primary-nav a[href^="#"]'));
+      if (!links.length) return;
+
+      const map = new Map();
+      links.forEach(a => {
+        const id = decodeURIComponent(a.getAttribute('href').slice(1));
+        const sec = document.getElementById(id);
+        if (sec) map.set(sec, a);
+      });
+
+      function setCurrent(targetLink){
+        links.forEach(l => l.removeAttribute('aria-current'));
+        if (targetLink) targetLink.setAttribute('aria-current', 'true');
+      }
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          // choose the section with the largest visible area
+          const visible = entries
+            .filter(e => e.isIntersecting)
+            .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!visible) return;
+          setCurrent(map.get(visible.target));
+        }, {
+          root: null,
+          // top margin accounts for sticky nav so it switches a bit earlier
+          rootMargin: '-20% 0px -60% 0px',
+          threshold: [0, 0.25, 0.5, 0.75, 1]
+        });
+
+        map.forEach((_, section) => observer.observe(section));
+      } else {
+        const sections = Array.from(map.keys());
+        function onScroll(){
+          const y = window.scrollY + 80; // approx nav height
+          let current = sections[0];
+          for (const s of sections){
+            if (s.offsetTop <= y) current = s;
+          }
+          setCurrent(map.get(current));
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+
+      // Immediate feedback on click
+      links.forEach(a => a.addEventListener('click', () => setCurrent(a)));
+    })();
+  </script>
+  <script>
+    (function(){
+      // helper: create a badge from a node or string
+      function makeBadge(content){
+        const span = document.createElement('span');
+        span.className = 'date-badge';
+        if (content instanceof Node) span.appendChild(content);
+        else span.textContent = content;
+        return span;
+      }
+      // helper: create an accessible dash between badges
+      function makeDash(){
+        const wrap = document.createElement('span');
+        wrap.className = 'date-dash';
+        wrap.setAttribute('aria-hidden','true');
+        wrap.textContent = '–';
+        // screen-reader "to"
+        const sr = document.createElement('span');
+        sr.className = 'sr-only';
+        sr.textContent = ' to ';
+        wrap.appendChild(sr);
+        return wrap;
+      }
+    
+      // targets: right-aligned meta blocks in cards and muted date spans inside lists
+      const targets = [
+        ...document.querySelectorAll('.row .right'),
+        ...document.querySelectorAll('li > .muted')
+      ];
+    
+      targets.forEach(el => {
+        // gather <time> nodes and possible "present" text
+        const times = Array.from(el.querySelectorAll('time'));
+        if (!times.length) return;
+        
+        // clone nodes so we don't mutate original references
+        const timeNodes = times.map(t => {
+          // ensure <time> text is already normalized by your other script
+          return t.cloneNode(true);
+        });
+      
+        // detect trailing or leading "present"/"now" text near <time>
+        function findPresentText(node){
+          // look in immediate text nodes of container
+          const txt = (node.textContent || '').toLowerCase();
+          return /\b(present|now)\b/.test(txt) ? 'present' : null;
+        }
+        const hasPresent = findPresentText(el);
+      
+        // build new structure
+        const wrap = document.createElement('span');
+        wrap.className = 'dates';
+      
+        if (timeNodes.length === 1 && !hasPresent){
+          wrap.appendChild(makeBadge(timeNodes[0]));
+        } else if (timeNodes.length >= 2){
+          wrap.appendChild(makeBadge(timeNodes[0]));
+          wrap.appendChild(makeDash());
+          wrap.appendChild(makeBadge(timeNodes[1]));
+        } else if (timeNodes.length === 1 && hasPresent){
+          wrap.appendChild(makeBadge(timeNodes[0]));
+          wrap.appendChild(makeDash());
+          wrap.appendChild(makeBadge('present'));
+        }
+      
+        // replace original content
+        // keep the container element (.right / .muted), but clear its children
+        el.textContent = '';
+        el.classList.add('item-meta'); // helps list layout
+        el.appendChild(wrap);
+      });
+    
+      // Enhance lists: wrap title+subtext vs dates into a two-column flex row
+      // Works for items like <li>Title  <span class="muted"><time>...</time></span>
+      document.querySelectorAll('#service li, #grants li, #awards li, #talks li > ul > li, #proposals li, #outreach li').forEach(li => {
+        if (li.querySelector('.dates') && !li.classList.contains('list-row')){
+          const muted = li.querySelector('.muted');
+          if (!muted) return;
+          const meta = document.createElement('div');
+          meta.className = 'item-meta';
+          meta.appendChild(muted.cloneNode(true));
+        
+          const main = document.createElement('div');
+          main.className = 'item-main';
+          // move everything except the (first) .muted into main
+          Array.from(li.childNodes).forEach(n => {
+            if (n !== muted) main.appendChild(n);
+          });
+        
+          li.textContent = '';
+          li.classList.add('list-row');
+          li.appendChild(main);
+          li.appendChild(meta);
+        }
+      });
+    
+      // In cards: turn ".row ... <span class='right'>" into aligned two-column header
+      document.querySelectorAll('.card .row').forEach(row => {
+        const right = row.querySelector('.right');
+        if (!right) return;
+        right.classList.add('item-meta');
+        const left = document.createElement('div');
+        left.className = 'item-main';
+        // move non-right nodes into left
+        Array.from(row.childNodes).forEach(n => { if (n !== right) left.appendChild(n); });
+        row.textContent = '';
+        row.appendChild(left);
+        row.appendChild(right);
+      });
+    })();
+    </script>
+    <script>
+      (function(){
+        // Turn publication years into right-aligned date badges and make a two-column row
+        document.querySelectorAll('ol.pub > li').forEach(li => {
+          const right = li.querySelector('span.right');
+          if (!right) return;
+
+          const year = (right.textContent || '').trim();
+          if (!year) return;
+
+          // Build a badge
+          const badge = document.createElement('span');
+          badge.className = 'date-badge';
+          badge.textContent = year;
+
+          const dates = document.createElement('span');
+          dates.className = 'dates';
+          dates.appendChild(badge);
+
+          // Right/meta column
+          const meta = document.createElement('div');
+          meta.className = 'item-meta';
+          meta.appendChild(dates);
+
+          // Left/main column: move everything except the original .right node
+          const main = document.createElement('div');
+          main.className = 'item-main';
+          Array.from(li.childNodes).forEach(n => { if (n !== right) main.appendChild(n); });
+
+          // Rebuild <li>
+          li.textContent = '';
+          li.classList.add('list-row');
+          li.appendChild(main);
+          li.appendChild(meta);
+        });
+      })();
+    </script>
+
+        <script>
+      (function(){
+        // Walk text nodes under a root and apply a transform
+        function walkTextNodes(root, transform){
+          const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+          const nodes = [];
+          while (walker.nextNode()) nodes.push(walker.currentNode);
+          nodes.forEach(node => {
+            const orig = node.nodeValue;
+            const next = transform(orig);
+            if (next !== orig) node.nodeValue = next;
+          });
+        }
+
+        // Replace spaces between initials: "A. B." -> "A.\u00A0B."
+        // Unicode-aware: letters from any alphabet
+        const NBSP = '\u00A0';
+        function fixInitialsSpaces(text){
+          // 1) Between consecutive initials (handles 2 or 3+ initials)
+          // e.g. "D. A. H." => "D.&nbsp;A.&nbsp;H."
+          text = text.replace(/(?<=\b[\p{L}])\.\s(?=[\p{L}]\.)/gu, '.' + NBSP);
+
+          // 2) Also catch cases with narrow no-break space or multiple spaces already
+          text = text.replace(/(?<=\b[\p{L}])\.(?:\s|[\u00A0\u202F])+(?=[\p{L}]\.)/gu, '.' + NBSP);
+
+          return text;
+        }
+
+        // Apply to author lines in publications (the grey .muted spans with authors)
+        document.querySelectorAll('#publications .pub .muted, ol.pub .muted').forEach(el => {
+          walkTextNodes(el, fixInitialsSpaces);
+        });
+      })();
+    </script>
+</body>
+</html>
