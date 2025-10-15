@@ -611,22 +611,6 @@
 
         </ul>
       </section>
-      <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const talksList = document.querySelector("#talks-list");
-    const items = Array.from(talksList.children);
-
-    // Определяем дату по самому свежему <time> внутри блока
-    items.sort((a, b) => {
-      const dateA = new Date(a.querySelector("time").getAttribute("datetime"));
-      const dateB = new Date(b.querySelector("time").getAttribute("datetime"));
-      return dateB - dateA; // от новых к старым
-    });
-
-    // Переставляем элементы в DOM
-    items.forEach(item => talksList.appendChild(item));
-  });
-</script>
     </main>
 
     <footer>
