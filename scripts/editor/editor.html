@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Editor — Alexander Salganik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .page-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .page-btn {
+            padding: 10px 16px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+        
+        .page-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+        
+        .page-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .editor-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .edit-field {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .edit-field:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .edit-field.full {
+            grid-column: 1 / -1;
+        }
+        
+        .edit-field label {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #667eea;
+            margin-bottom: 12px;
+        }
+        
+        .edit-field input,
+        .edit-field textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            resize: vertical;
+        }
+        
+        .edit-field input:focus,
+        .edit-field textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .edit-field input[type="text"] {
+            min-height: 44px;
+        }
+        
+        .edit-field textarea {
+            min-height: 120px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .field-hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 8px;
+        }
+        
+        .topics-input {
+            min-height: 80px;
+        }
+        
+        .topics-preview {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .chip {
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-save {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-save:active {
+            transform: translateY(0);
+        }
+        
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-reset:hover {
+            background: #e8e8e8;
+        }
+        
+        .message {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message.show {
+            display: block;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .message.loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .info-box {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .info-box strong {
+            color: #667eea;
+        }
+        
+        footer {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #667eea;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        #editorForm {
+            display: none;
+        }
+        
+        #editorForm.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✏️ Site Editor</h1>
+            <p class="subtitle">Alexander Salganik — Local Content Management</p>
+        </header>
+        
+        <div class="info-box">
+            <strong>⚠️ Local Only:</strong> This editor works only on your computer. Changes are saved directly to your website files.
+        </div>
+        
+        <div id="message" class="message"></div>
+        
+        <!-- Page Selector -->
+        <div class="page-selector">
+            <button type="button" class="page-btn active" data-page="home">Home</button>
+            <button type="button" class="page-btn" data-page="cv">CV</button>
+            <button type="button" class="page-btn" data-page="publications">Publications</button>
+            <button type="button" class="page-btn" data-page="research">Research</button>
+            <button type="button" class="page-btn" data-page="contact">Contact</button>
+        </div>
+        
+        <form id="editorForm" class="show">
+            <div class="editor-grid" id="editorContent">
+                <!-- Content will be loaded here -->
+            </div>
+            
+            <div class="actions">
+                <button type="submit" class="btn-save">💾 Save Changes</button>
+                <button type="reset" class="btn-reset">↻ Reset</button>
+            </div>
+        </form>
+        
+        <footer>
+            All changes are saved locally to your website files. Press Ctrl+C in the terminal to close this editor.
+        </footer>
+    </div>
+    
+    <script>
+        const form = document.getElementById('editorForm');
+        const messageDiv = document.getElementById('message');
+        const editorContent = document.getElementById('editorContent');
+        const pageBtns = document.querySelectorAll('.page-btn');
+        
+        let currentPage = 'home';
+        
+        // Page selector event listeners
+        pageBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchPage(btn.dataset.page);
+            });
+        });
+        
+        // Switch page
+        async function switchPage(page) {
+            currentPage = page;
+            
+            // Update button states
+            pageBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.page === page);
+            });
+            
+            // Load content
+            await loadContent();
+        }
+        
+        // Load content on page load
+        async function loadContent() {
+            try {
+                const response = await fetch(`/api/content?page=${currentPage}`);
+                const data = await response.json();
+                
+                editorContent.innerHTML = '';
+                
+                if (currentPage === 'home') {
+                    editorContent.appendChild(createField('overview', 'Research Overview', 'My research focuses on...', true, 'Detailed paragraph about your research', true));
+                    
+                    document.getElementById('overview').value = data.overview;
+                } else if (currentPage === 'cv') {
+                    editorContent.appendChild(createField('education', 'Education Section', '', true, 'HTML content for education section', true));
+                    editorContent.appendChild(createField('experience', 'Work Experience Section', '', true, 'HTML content for work experience', true));
+                    
+                    document.getElementById('education').value = data.education || '';
+                    document.getElementById('experience').value = data.experience || '';
+                } else if (currentPage === 'publications') {
+                    editorContent.appendChild(createField('publications', 'Publications List', '', true, 'HTML list of publications', true));
+                    document.getElementById('publications').value = data.publications || '';
+                } else if (currentPage === 'research') {
+                    editorContent.appendChild(createField('intro', 'Research Introduction', '', true, 'Research page introduction', true));
+                    document.getElementById('intro').value = data.intro || '';
+                } else if (currentPage === 'contact') {
+                    editorContent.appendChild(createField('contact', 'Contact Content', '', true, 'Contact page HTML content', true));
+                    document.getElementById('contact').value = data.contact || '';
+                }
+            } catch (error) {
+                showMessage('Error loading content: ' + error.message, 'error');
+            }
+        }
+        
+        function createField(id, label, placeholder, isTextarea = false, hint = '', full = false) {
+            const field = document.createElement('div');
+            field.className = `edit-field ${full ? 'full' : ''}`;
+            
+            const labelEl = document.createElement('label');
+            labelEl.htmlFor = id;
+            labelEl.textContent = label;
+            field.appendChild(labelEl);
+            
+            let input;
+            if (isTextarea) {
+                input = document.createElement('textarea');
+                input.style.minHeight = full ? '200px' : '120px';
+                if (id === 'topics') {
+                    input.addEventListener('input', updateTopicsPreview);
+                }
+            } else {
+                input = document.createElement('input');
+                input.type = 'text';
+            }
+            
+            input.id = id;
+            input.name = id;
+            input.placeholder = placeholder;
+            field.appendChild(input);
+            
+            if (hint) {
+                const hintEl = document.createElement('div');
+                hintEl.className = 'field-hint';
+                hintEl.textContent = hint;
+                field.appendChild(hintEl);
+            }
+            
+            return field;
+        }
+        
+        function createTopicsField() {
+            const field = document.createElement('div');
+            field.className = 'edit-field full';
+            
+            const label = document.createElement('label');
+            label.htmlFor = 'topics';
+            label.textContent = 'Research Topics (Tags)';
+            field.appendChild(label);
+            
+            const textarea = document.createElement('textarea');
+            textarea.id = 'topics';
+            textarea.name = 'topics';
+            textarea.className = 'topics-input';
+            textarea.placeholder = 'Enter topics separated by commas\nExample: X-ray pulsars, Spectroscopy, Timing analysis';
+            textarea.addEventListener('input', updateTopicsPreview);
+            field.appendChild(textarea);
+            
+            const hint = document.createElement('div');
+            hint.className = 'field-hint';
+            hint.textContent = 'Separate each topic with a comma';
+            field.appendChild(hint);
+            
+            const preview = document.createElement('div');
+            preview.className = 'topics-preview';
+            preview.id = 'topicsPreview';
+            field.appendChild(preview);
+            
+            return field;
+        }
+        
+        // Update topics preview
+        function updateTopicsPreview() {
+            const topicsInput = document.getElementById('topics');
+            const topicsPreview = document.getElementById('topicsPreview');
+            
+            if (!topicsInput || !topicsPreview) return;
+            
+            const topics = topicsInput.value
+                .split(',')
+                .map(t => t.trim())
+                .filter(t => t);
+            
+            topicsPreview.innerHTML = topics
+                .map(topic => `<span class="chip">${escapeHtml(topic)}</span>`)
+                .join('');
+        }
+        
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Show message
+        function showMessage(text, type = 'success') {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type} show`;
+            
+            if (type !== 'loading') {
+                setTimeout(() => {
+                    messageDiv.classList.remove('show');
+                }, 4000);
+            }
+        }
+        
+        // Save form
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            showMessage('Saving...', 'loading');
+            
+            const data = { page: currentPage };
+            
+            if (currentPage === 'home') {
+                data.overview = document.getElementById('overview').value;
+            } else if (currentPage === 'cv') {
+                data.education = document.getElementById('education').value;
+                data.experience = document.getElementById('experience').value;
+            } else if (currentPage === 'publications') {
+                data.publications = document.getElementById('publications').value;
+            } else if (currentPage === 'research') {
+                data.intro = document.getElementById('intro').value;
+            } else if (currentPage === 'contact') {
+                data.contact = document.getElementById('contact').value;
+            }
+            
+            try {
+                const response = await fetch('/api/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('✓ Changes saved successfully!', 'success');
+                } else {
+                    showMessage('Error saving changes', 'error');
+                }
+            } catch (error) {
+                showMessage('Error: ' + error.message, 'error');
+            }
+        });
+        
+        // Load initial content
+        loadContent();
+    </script>
+</body>
+</html>
