@@ -1,0 +1,93 @@
+=====================================================================
+1) EMAIL TO A POTENTIAL HOST AT MKI  (send this week, before ~Dec 1)
+   Attach: CV + research proposal (PDF)
+=====================================================================
+
+Subject: Kavli Fellowship application: X-ray polarimetry and cyclotron lines in accreting pulsars
+
+Dear Dr. [Name],
+
+I am a third-year PhD student at the University of Turku, working with Juri Poutanen and Sergey Tsygankov, and I will defend in summer 2027. I am applying for the MIT Kavli Postdoctoral Fellowship and would very much like to work with you.
+
+I study accreting X-ray pulsars. As PI of IXPE and NuSTAR observations, I made the first detection of X-ray polarization from a long-period pulsar (4U 1954+319), and I recently discovered frequency hysteresis of QPOs in 1A 1118-61. My proposal combines polarimetry (magnetic-field orientation) with cyclotron lines (field strength) in a uniform study of the IXPE pulsar sample, and extends it to predictions for soft X-ray polarimetry.
+
+[ONE TAILORED SENTENCE — pick from the options below]
+
+Would you be open to a short call in the next week or two, and would you be comfortable with me naming you as a potential collaborator in my proposal? The deadline is December 11. My CV and draft proposal are attached.
+
+Best regards,
+Alexander Salganik
+University of Turku · https://salganik.me
+
+--- Tailored sentence options ---
+
+(a) Dr. Herman Marshall — PI of REDSoX and GOSoX (GOSoX: NASA Pioneer, 0.2–0.4 keV, launch 2030).
+    Strongest fit for Project C. TIP: your co-author Andrea Santangelo (Tübingen) is on the GOSoX team
+    (Marshall et al. 2026, arXiv:2608.02891) — consider asking him for a short introduction first.
+"The soft X-ray part of my proposal is built around GOSoX: I would like to develop the accreting-pulsar science case in the 0.2–0.4 keV band — predicting the polarization of the soft excess in sources such as Her X-1 and assessing which targets are feasible."
+
+(b) Prof. Erin Kara — X-ray timing of accreting compact objects (NICER); received an MIT postdoctoral mentoring award.
+"The timing part of my proposal, a systematic search for accretion-history effects in QPOs with NICER and NuSTAR, would benefit greatly from your expertise in X-ray timing and reverberation of accreting compact objects."
+
+(c) Prof. Deepto Chakrabarty — neutron stars, X-ray timing, NICER.
+"My work on how accretion onto magnetized neutron stars changes between low-luminosity, sub-critical and supercritical regimes, and on QPO hysteresis, connects closely to your research on accreting neutron stars with NICER."
+
+Note: MKI's current Kavli Fellow Paul Draghis works on black-hole X-ray binaries (NICER, NuSTAR) — a natural colleague, worth knowing.
+
+
+=====================================================================
+2) EMAIL TO REFEREES  (send today)
+   Attach: CV, research statement, research proposal (PDF)
+=====================================================================
+
+Subject: Reference letter for MIT Kavli Fellowship (deadline Dec 11)
+
+Dear [Juri / Sergey / Name],
+
+Thank you again for agreeing to write a letter for me. I am applying for the MIT Kavli Postdoctoral Fellowship and the Juan Carlos Torres Fellowship (AcademicJobsOnline #32990). Letters are due on December 11, 2026 (before 06:59 on Dec 12, Finnish time); you should receive an upload link from AJO.
+
+I attach my CV, research statement and research proposal. To make writing easier, here are the points that would help most, if you agree with them:
+
+- Timeline: I expect to defend in summer 2027, before the fellowship starts. A sentence confirming this would be very helpful (Juri, especially from you).
+- Independence: I proposed and led my own programmes: PI of 11 approved NuSTAR, IXPE, Swift and Insight-HXMT programmes, including ~630 ks of DDT, plus many NICER/Swift ToOs.
+- Key results: first X-ray polarization detection from a long-period pulsar (4U 1954+319); discovery of QPO frequency hysteresis (1A 1118-61); new stable low-luminosity accretion state (2RXP J1301); pulse-phase-transient cyclotron line (Swift J1808.4-1754).
+- Productivity: 10 first-author papers (7 published, 3 in press or submitted).
+- Fit with MKI: my proposal links IXPE polarimetry and cyclotron lines with soft X-ray polarimetry for MKI's GOSoX mission (NASA Pioneer, launch 2030).
+- Mentoring: supervising student research projects at CCIR; TA for the MSc course on X-ray and gamma-ray data analysis in Turku.
+
+I will send a short reminder a few days before the deadline. Thank you very much!
+
+Best regards,
+Alexander
+
+
+=====================================================================
+3) REMINDER TO REFEREES  (send ~Dec 7–8)
+=====================================================================
+
+Subject: Gentle reminder: MIT Kavli letter due Dec 11
+
+Dear [Name],
+
+Just a gentle reminder that the letter for the MIT Kavli Fellowship is due this Thursday, December 11. If the AJO upload link did not arrive or has expired, please let me know and I will resend it. Thank you again for your support!
+
+Best regards,
+Alexander
+
+
+=====================================================================
+4) QUESTION TO MKI ABOUT THE START DATE  (optional)
+   To: the contact address under "Further Info" in the AJO ad
+=====================================================================
+
+Subject: MIT Kavli Postdoctoral Fellowship: expected start date
+
+Dear Colleagues,
+
+I am preparing an application for the MIT Kavli Postdoctoral Fellowship (AJO #32990). Could you please confirm the expected start date for the 2027 appointments (I understand past fellows usually started in September), and whether there is some flexibility? I expect to defend my PhD in summer 2027.
+
+Thank you very much.
+
+Best regards,
+Alexander Salganik
+PhD candidate, University of Turku
